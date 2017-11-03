@@ -23,8 +23,8 @@
 // of i per period.
 //
 ////////////////////////////////////////////////////////////////////////////////
-function pvOfOrdinaryAnnuityWithPeriodicInterestRate(i : number, 
-                                                     n : number) : number
+function pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(i : number, 
+                                                                       n : number) : number
 {
     var pv : number;
     
