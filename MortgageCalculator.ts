@@ -4,6 +4,9 @@
 // The code here is based on the Objective-C code in /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage
 // We plan to put all of the corresponding TypeScript code into one file, at least initially.
 
+// Begin implementing counterparts for the code in the Objective-C file 
+// /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage/Utilities.m
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 // This method returns the present value of an ordinary annuity with payments
@@ -91,3 +94,6 @@ function isBlankString(s : string) : boolean
     }   //   end i-loop
     return isBlank;
 }
+
+//   End implementing counterparts for the code in the Objective-C file 
+// /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage/Utilities.m
