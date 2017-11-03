@@ -1,0 +1,22 @@
+{
+    "version": "1.7.5",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": false,
+        "noLib": false,
+        "sourceMap": false
+    },
+    "filesGlob": [
+        "./**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "files": [
+        "./MortgageCalculator.ts"
+    ],
+    "atom": {
+        "rewriteTsconfig": true
+    }
+}
