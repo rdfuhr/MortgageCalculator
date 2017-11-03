@@ -45,4 +45,24 @@ function pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(i : numbe
     }  //   end normal case with positive interest rate
 
     return pv;
-}                                                     
+}   
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// This is a special-purpose method that takes a double and rounds it up to the
+// next-highest .01 .  We could have probably done the same thing using
+// the foundation method called NSDecimalNumber, and, in fact, maybe we will
+// do that in a future release of this function.
+//
+// Input x - the number to be rounded up to the next-highest .01
+//
+// Returns - a number that is obtained when x is rounded up to the next-highest .01
+//
+////////////////////////////////////////////////////////////////////////////////
+function roundUp(x : number) : number
+{
+    var y1 : number = 100.0*x;
+    var y2 : number = Math.ceil(y1);
+    var y3 = y2/100.0;
+    return y3;
+}
