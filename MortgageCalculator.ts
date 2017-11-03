@@ -66,3 +66,28 @@ function roundUp(x : number) : number
     var y3 = y2/100.0;
     return y3;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// This function returns YES if the input string s consists of all blanks.
+// It will also return YES if the input string is of length zero.
+//
+// Input s - the string to be analyzed
+//
+// Returns - true if s consists of all blank characters, false otherwise.
+////////////////////////////////////////////////////////////////////////////////
+function isBlankString(s : string) : boolean
+{
+    var isBlank : boolean = true;
+    var length : number = s.length;
+    var blankChar : string = " ";
+    for (var i : number = 0; i < length; i++)
+    {   // begin i-loop
+        if (s.charAt[i] != blankChar)
+        {
+            isBlank = false;
+            break;
+        }
+    }   //   end i-loop
+    return isBlank;
+}
