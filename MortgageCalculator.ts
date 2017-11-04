@@ -44,7 +44,7 @@ function pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(i : numbe
     {  // begin normal case with positive interest rate
        var v : number = 1.0/(1 + i); // standard actuarial notation
        var v_to_the_n = Math.pow(v, n);
-       pv = (1.0 - v_to_the_n)/i; // standard formual for present value of annuity 
+       pv = (1.0 - v_to_the_n)/i; // standard formula for present value of annuity 
     }  //   end normal case with positive interest rate
 
     return pv;
