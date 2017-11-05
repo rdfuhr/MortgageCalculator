@@ -97,3 +97,28 @@ function isBlankString(s : string) : boolean
 
 //   End implementing counterparts for the code in the Objective-C file 
 // /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage/Utilities.m
+
+// Begin implementing counterparts for the code in the Objective-C file 
+// /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage/Mortgage.m
+
+class Mortgage
+{   // Begin class Mortgage
+    initialLoan : number;
+    annualInterestRateAsAPercent : number;
+    numberOfYears : number;
+    monthlyPayment : number;
+
+    constructor(initialLoan : number,
+                annualInterestRateAsAPercent : number,
+                numberOfYears : number,
+                monthlyPayment : number)
+    {
+        this.initialLoan = initialLoan;
+        this.annualInterestRateAsAPercent = annualInterestRateAsAPercent;
+        this.numberOfYears = numberOfYears;
+        this.monthlyPayment = monthlyPayment;
+    }
+}   //   end class Mortgage
+
+//   End implementing counterparts for the code in the Objective-C file 
+// /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage/Mortgage.m
