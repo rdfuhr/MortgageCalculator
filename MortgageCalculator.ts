@@ -129,7 +129,18 @@ class Mortgage
         this.monthlyPayment = P;
         return P;
     }
-    
+
+    computeInitialLoan() : number
+    {
+        var i : number = this.annualInterestRateAsAPercent/1200;
+        var n : number = this.numberOfYears*12;
+        var P : number = this.monthlyPayment;
+        var a : number = pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(i, n);
+        var L : number = P*a;
+        this.initialLoan = L;
+        return L;
+    }
+
 }   //   end class Mortgage
 
 //   End implementing counterparts for the code in the Objective-C file 
