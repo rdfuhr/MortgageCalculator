@@ -140,6 +140,28 @@ class Mortgage
         this.initialLoan = L;
         return L;
     }
+    
+    computeNumberOfMonths() : number
+    {
+        var i : number = this.annualInterestRateAsAPercent/1200;
+        var P : number = this.monthlyPayment;
+        var L : number = this.initialLoan;
+        var B : number = L; // B is the outstanding balance, which initially is L
+        var n : number = 0; // n is the number of payments, which initially is 0
+        while (B > 0) // As long as B > 0 we have to make another monthly payment
+        {
+            // Apply one-month's interest to increase the outstanding balance
+            B = B + i*B;
+
+            // Subtract one monthly payment to decrease the outstanding balance
+            B = B - P;
+
+            // Increase the number of payments made by 1
+            n = n + 1;
+        }
+        return n;
+    }
+
 
 }   //   end class Mortgage
 
