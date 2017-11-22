@@ -221,6 +221,16 @@ class Mortgage
         return i;
     }
 
+    initialLoanMinusLoanAsAFunctionOfMonthlyRate(i : number) : number
+    {
+        var j : number = i/1200; // note, we convert i to j and only use j below
+        var L : number = this.initialLoan;
+        var n : number = this.numberOfYears*12;
+        var a : number = pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(j, n); // Note, we use the converted value j obtained from i
+        var P : number = this.monthlyPayment;
+        return L - P*a;
+    }
+
 
 }   //   end class Mortgage
 
