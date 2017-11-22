@@ -217,7 +217,13 @@ class Mortgage
 
     computeAnnualInterestRateAsAPercent() : number
     {
+        // We may need to just code the zero finder in line and not worry about passing function pointers
         var i : number = -1;
+        // const TOL : number = 0.000001;
+        // const NMAX : number = 100;
+        // var a : number = 0.0;
+        // var b : number = 100.0;
+        // i = findRootUsingBisection(a, b, this.initialLoanMinusLoanAsAFunctionOfMonthlyRate, TOL, NMAX);
         return i;
     }
 
