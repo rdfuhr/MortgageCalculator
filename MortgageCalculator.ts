@@ -95,6 +95,17 @@ function isBlankString(s : string) : boolean
     return isBlank;
 }
 
+function findRootUsingBisection(a : number, // lower bound of interval containing root
+                                b : number, // upper bound of interval containing root
+                                f : (x : number)=>number, // function whose root is to be found
+                                TOL : number, // tolerance for finding root
+                                NMAX : number, // maximum number of iterations
+                                ) : number // an approximation for the root
+{
+    var root : number = a - 1; // initialize to error code
+    return root;
+}
+
 //   End implementing counterparts for the code in the Objective-C file 
 // /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage/Utilities.m
 
