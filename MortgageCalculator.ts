@@ -103,7 +103,49 @@ function findRootUsingBisection(a : number, // lower bound of interval containin
                                 ) : number // an approximation for the root
 {
     var root : number = a - 1; // initialize to error code
+    var n : number = 1; // the iteration counter
+    var c : number; // will be used as the midpoint of the current interval [a,b]
+    while (n <= NMAX)
+    {   // begin while (n <= NMAX)
+        c = (a + b)/2.0; // the midpoint of the current interval [a,b]
+        if ( (f(c)==0.0) || ( (b-a)/2.0 < TOL) )
+        {
+           root = c; // we have found a root, to within tolerance
+           break; // get out of the while loop
+        }
+    }   //   end while (n <= NMAX)
+    n = n + 1; // increment the iteration counter
+
+    // Decide how to construct the next interval [a,b]
+    if ( sign(f(c))==sign(f(a)) )
+    {
+        a = c;
+    }
+    else
+    {
+        b = c;
+    }
+    
     return root;
+}
+
+function sign(t : number) : number
+{
+    var signVal : number;
+    if (t < 0)
+    {
+        signVal = -1;
+    }
+    else
+    if (t > 0)
+    {
+        signVal = 1;
+    }
+    else
+    {
+        signVal = 0;
+    }
+    return signVal;
 }
 
 //   End implementing counterparts for the code in the Objective-C file 
