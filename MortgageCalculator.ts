@@ -215,6 +215,12 @@ class Mortgage
         return n;
     }
 
+    computeAnnualInterestRateAsPercent() : number
+    {
+        var i : number = -1;
+        return i;
+    }
+
 
 }   //   end class Mortgage
 
