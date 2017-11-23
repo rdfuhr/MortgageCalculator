@@ -239,6 +239,11 @@ class Mortgage
 
 }   //   end class Mortgage
 
+// http://www.moneychimp.com/calculator/mortgage_calculator.htm
+// http://www.bankrate.com/calculators/mortgages/mortgage-calculator-b.aspx
+// http://www.calculator.com/pantaserv/mortgage_s.calc
+// https://www.elend.com/calculators/mortgage-loan-calculator/
+
 function testComputeMonthlyPayment()
 {
     document.writeln("<p>Entering testComputeMonthlyPayment()</p>");
@@ -252,17 +257,39 @@ function testComputeMonthlyPayment()
     
    
     var M : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, -1);
-    var monthlyPayment : number = M.computeMonthlyPayment()
+    var monthlyPayment : number = M.computeMonthlyPayment();
 
     document.writeln("<p>monthlyPayment = " + monthlyPayment.toString() + "</p>");
     
     document.writeln("<p>Leaving testComputeMonthlyPayment()</p>");
 }
 
+function testComputeInitialLoan()
+{
+    document.writeln("<p>Entering testComputeInitialLoan()</p>");
+    
+    var annualInterestRateAsAPercent : number = 3.5;
+    var numberOfYears : number = 30.0;
+    var monthlyPayment : number = 898.0893756176412; // we are putting it in very precisely
+    
+    document.writeln("<p>annualInterestRateAsAPercent = " + annualInterestRateAsAPercent.toString() + "</p>");
+    document.writeln("<p>numberOfYears = " + numberOfYears.toString() + "</p>");
+    document.writeln("<p>monthlyPayment = " + monthlyPayment.toString() + "</p>");
+   
+    var M : Mortgage = new Mortgage(-1, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
+    var initialLoan : number = M.computeInitialLoan();
+
+    document.writeln("<p>initialLoan = " + initialLoan.toString() + "</p>");
+    
+    document.writeln("<p>Leaving testComputeInitialLoan()</p>");
+}
+
+
 function doTests()
 {
     document.writeln("<p>Entering doTests()</p>");
     testComputeMonthlyPayment();
+    testComputeInitialLoan();
     document.writeln("<p>Leaving doTests()</p>");
 }
 
