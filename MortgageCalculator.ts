@@ -239,5 +239,32 @@ class Mortgage
 
 }   //   end class Mortgage
 
+function testComputeMonthlyPayment()
+{
+    document.writeln("<p>Entering testComputeMonthlyPayment()</p>");
+    var initialLoan : number = 200000;
+    var annualInterestRateAsAPercent : number = 3.5;
+    var numberOfYears : number = 30.0;
+
+    document.writeln("<p>initialLoan = " + initialLoan.toString() + "</p>");
+    document.writeln("<p>annualInterestRateAsAPercent = " + annualInterestRateAsAPercent.toString() + "</p>");
+    document.writeln("<p>numberOfYears = " + numberOfYears.toString() + "</p>");
+    
+   
+    var M : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, -1);
+    var monthlyPayment : number = M.computeMonthlyPayment()
+
+    document.writeln("<p>monthlyPayment = " + monthlyPayment.toString() + "</p>");
+    
+    document.writeln("<p>Leaving testComputeMonthlyPayment()</p>");
+}
+
+function doTests()
+{
+    document.writeln("<p>Entering doTests()</p>");
+    testComputeMonthlyPayment();
+    document.writeln("<p>Leaving doTests()</p>");
+}
+
 //   End implementing counterparts for the code in the Objective-C file 
 // /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage/Mortgage.m
