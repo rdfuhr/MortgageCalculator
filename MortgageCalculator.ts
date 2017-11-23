@@ -284,12 +284,33 @@ function testComputeInitialLoan()
     document.writeln("<p>Leaving testComputeInitialLoan()</p>");
 }
 
+function testComputeNumberOfMonths()
+{
+    document.writeln("<p>Entering testComputeNumberOfMonths()</p>");
+    
+    var initialLoan : number = 200000;
+    var annualInterestRateAsAPercent : number = 3.5;
+    var monthlyPayment : number = 898.09; // round up
+    
+    document.writeln("<p>initialLoan = " + initialLoan.toString() + "</p>");
+    document.writeln("<p>annualInterestRateAsAPercent = " + annualInterestRateAsAPercent.toString() + "</p>");
+    document.writeln("<p>monthlyPayment = " + monthlyPayment.toString() + "</p>");
+   
+    var M : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, -1, monthlyPayment);
+    var numberOfMonths : number = M.computeNumberOfMonths();
+
+    document.writeln("<p>numberOfMonths = " + numberOfMonths.toString() + "</p>");
+    
+    document.writeln("<p>Leaving testComputeNumberOfMonths()</p>");
+}
+
 
 function doTests()
 {
     document.writeln("<p>Entering doTests()</p>");
     testComputeMonthlyPayment();
     testComputeInitialLoan();
+    testComputeNumberOfMonths();
     document.writeln("<p>Leaving doTests()</p>");
 }
 
