@@ -97,7 +97,8 @@ function isBlankString(s : string) : boolean
 
 function findRootUsingBisection(a : number, // lower bound of interval containing root
                                 b : number, // upper bound of interval containing root
-                                f : (x : number)=>number, // function whose root is to be found
+                                f : (x : number, data : any)=>number, // function whose root is to be found
+                                data : any, // the data associated with the function
                                 TOL : number, // tolerance for finding root
                                 NMAX : number, // maximum number of iterations
                                 ) : number // an approximation for the root
@@ -105,21 +106,17 @@ function findRootUsingBisection(a : number, // lower bound of interval containin
     var root : number = a - 1; // initialize to error code
     var n : number = 1; // the iteration counter
     var c : number; // will be used as the midpoint of the current interval [a,b]
-    // alert("f(a) = " + f(a).toString());
-    // alert("f(b) = " + f(b).toString());
     while (n <= NMAX)
     {   // begin while (n <= NMAX)
         c = (a + b)/2.0; // the midpoint of the current interval [a,b]
-        // alert("f(c) = " + f(c).toString());
-        if ( (f(c)==0.0) || ( (b-a)/2.0 < TOL) )
+        if ( (f(c, data)==0.0) || ( (b-a)/2.0 < TOL) )
         {
            root = c; // we have found a root, to within tolerance
-           // alert("Root found after " + n.toString() + " iterations");
            break; // get out of the while loop
         }
         n = n + 1;
         // Decide how to construct the next interval [a,b]
-        if ( sign(f(c))==sign(f(a)) )
+        if ( sign(f(c, data))==sign(f(a, data)) )
         {
            a = c;
         }
@@ -225,29 +222,22 @@ class Mortgage
         const NMAX : number = 100;
         var a : number = 0.0;
         var b : number = 100.0;
-        i = findRootUsingBisection(a, b, this.initialLoanMinusLoanAsAFunctionOfMonthlyRate, TOL, NMAX);
+        i = findRootUsingBisection(a, b, initialLoanMinusLoanAsAFunctionOfMonthlyRate, this, TOL, NMAX);
         return i;
     }
 
-    initialLoanMinusLoanAsAFunctionOfMonthlyRate(i : number) : number
-    {
-        alert("i = " + i.toString());
-        var j : number = i/1200; // note, we convert i to j and only use j below
-        alert("j = " + j.toString());
-        var L : number = this.initialLoan;
-        alert("L = " + L.toString());
-        var n : number = this.numberOfYears*12;
-        alert("n = " + n.toString());
-        var a : number = pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(j, n); // Note, we use the converted value j obtained from i
-        alert("a = " + a.toString());
-        var P : number = this.monthlyPayment;
-        alert("P = " + P.toString());
-        alert("L - P*a = " + (L - P*a).toString());
-        return L - P*a;
-    }
-
-
+    
 }   //   end class Mortgage
+
+function initialLoanMinusLoanAsAFunctionOfMonthlyRate(i : number, M : Mortgage) : number
+{
+    var j : number = i/1200; // note, we convert i to j and only use j below
+    var L : number = M.initialLoan;
+    var n : number = M.numberOfYears*12;
+    var a : number = pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(j, n); // Note, we use the converted value j obtained from i
+    var P : number = M.monthlyPayment;
+    return L - P*a;
+}
 
 // http://www.moneychimp.com/calculator/mortgage_calculator.htm
 // http://www.bankrate.com/calculators/mortgages/mortgage-calculator-b.aspx
@@ -341,11 +331,11 @@ function testFindRootUsingBisection()
     var b : number = 2.0;
     var TOL : number = 0.000001;
     var NMAX : number = 100;
-    var root : number = findRootUsingBisection(a, b, xSquaredMinusTwo, TOL, NMAX)
+    var root : number = findRootUsingBisection(a, b, xSquaredMinusTwo, null, TOL, NMAX)
     document.writeln("<p>root = " + root.toString());
     var error : number = Math.abs(root - Math.sqrt(2.0));
     document.writeln("<p>error = " + error.toString()); 
-    root = findRootUsingBisection(a, b, xCubedMinusSix, TOL, NMAX)
+    root = findRootUsingBisection(a, b, xCubedMinusSix, null, TOL, NMAX)
     document.writeln("<p>root = " + root.toString());
     error = Math.abs(root - Math.pow(6.0, (1.0/3.0)));
     document.writeln("<p>error = " + error.toString()); 
