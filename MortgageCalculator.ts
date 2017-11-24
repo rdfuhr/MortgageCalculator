@@ -220,7 +220,6 @@ class Mortgage
 
     computeAnnualInterestRateAsAPercent() : number
     {
-        alert ("typeof(this) = " + typeof(this).toString());
         var i : number = -1;
         const TOL : number = 0.000001;
         const NMAX : number = 100;
@@ -232,7 +231,6 @@ class Mortgage
 
     initialLoanMinusLoanAsAFunctionOfMonthlyRate(i : number) : number
     {
-        alert("this = " + this.toString());
         alert("i = " + i.toString());
         var j : number = i/1200; // note, we convert i to j and only use j below
         alert("j = " + j.toString());
@@ -345,11 +343,11 @@ function testFindRootUsingBisection()
     var NMAX : number = 100;
     var root : number = findRootUsingBisection(a, b, xSquaredMinusTwo, TOL, NMAX)
     document.writeln("<p>root = " + root.toString());
-    var error : number = Math.abs(root - Math.sqrt(2.0);
+    var error : number = Math.abs(root - Math.sqrt(2.0));
     document.writeln("<p>error = " + error.toString()); 
     root = findRootUsingBisection(a, b, xCubedMinusSix, TOL, NMAX)
     document.writeln("<p>root = " + root.toString());
-    error = Math.abs(root - Math.pow(6.0, (1.0/3.0));
+    error = Math.abs(root - Math.pow(6.0, (1.0/3.0)));
     document.writeln("<p>error = " + error.toString()); 
     document.writeln("<p>Leaving testFindRootUsingBisection()</p>");  
 }
@@ -371,7 +369,7 @@ function doTests()
     testComputeInitialLoan();
     testComputeNumberOfMonths();
     testFindRootUsingBisection();
-    // testComputeAnnualInterestRateAsAPercent();
+    testComputeAnnualInterestRateAsAPercent();
     document.writeln("<p>Leaving doTests()</p>");
 }
 
