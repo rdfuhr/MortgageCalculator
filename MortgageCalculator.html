@@ -5,56 +5,66 @@
 <meta charset="UTF-8">
 
 <html>
-<head>
-    <title>Mortgage Calculator</title>
-    <script src="MortgageCalculator.js">
-    </script>
-<!-- Style based on Core HTML5 Canvas Example     -->
-    <style>
-         body {
-            background: #dddddd;
-         }
-
-         #drawingCanvas {
-            margin: 10px;
-            padding: 10px;
-            background: #ffffff;
-            border: thin inset #aaaaaa;
-         }
-      </style>
-</head>
-
-<body>
-
-
-<div>
-<!-- Golden Ratio is approximately 1.618      -->
-<!-- I am using the Golden Ratio as width/height for the rectangle -->
-<!-- This could be overridden by code in the TypeScript/JavaScript file -->
-<canvas id="drawingCanvas" width="1084" height="670">
-      Canvas not supported
-</canvas>
-</div>
-
-<table>
-<tr>
-
-
-<td>
-    <input type="button"
-           value="Do Tests"
-           id = "DoTests"
-           onclick="doTests()" />
-</td>
-
-
-
-</tr>
-<table>    
-
-
-
-
-
-</body>
-</html>
+    
+    <head>
+        <title>Mortgage Calculator</title>
+        <script src="MortgageCalculator.js">
+        </script>
+        <!-- Style based on Core HTML5 Canvas Example     -->
+        <style>
+            body {
+                background: #dddddd;
+            }
+            
+            #drawingCanvas {
+                margin: 10px;
+                padding: 10px;
+                background: #ffffff;
+                border: thin inset #aaaaaa;
+            }
+        </style>
+    </head>
+    
+    <body>
+    
+        <div>
+            <!-- Golden Ratio is approximately 1.618      -->
+            <!-- I am using the Golden Ratio as width/height for the rectangle -->
+            <!-- This could be overridden by code in the TypeScript/JavaScript file -->
+            <canvas id="drawingCanvas" width="1084" height="670">
+                Canvas not supported
+            </canvas>
+        </div>
+    
+        <table>
+            <tr>
+                <td>
+                    <input type="text" id="txtInputLoan" placeholder="Original Loan"/>
+                </td>
+                <td>
+                    <input type="text" id="txtInputInterest" placeholder="Interest Rate"/>
+                </td> 
+                <td>
+                    <input type="text" id="txtInputYears" placeholder="Total Years"/>
+                </td>
+                <td>
+                    <input type="text" id="txtInputPayment" placeholder="Monthly Payment"/>
+                </td>
+                <td>
+                    <input type="button" value="Compute" id="btnCompute"/>
+                </td>
+                <td>
+                    <input type="button" value="Graph" id="btnGraph"/>
+                </td>
+                <td>
+                    <input type="button" value="Help" id="btnHelp"/>
+                </td>                                          
+                <td>
+                    <input type="button" value="Do Tests" id="btnDoTests" onclick="doTests()" />
+                </td>
+            </tr>
+            <table>
+    
+    </body>
+    
+    </html>
