@@ -105,27 +105,30 @@ function findRootUsingBisection(a : number, // lower bound of interval containin
     var root : number = a - 1; // initialize to error code
     var n : number = 1; // the iteration counter
     var c : number; // will be used as the midpoint of the current interval [a,b]
+    // alert("f(a) = " + f(a).toString());
+    // alert("f(b) = " + f(b).toString());
     while (n <= NMAX)
     {   // begin while (n <= NMAX)
         c = (a + b)/2.0; // the midpoint of the current interval [a,b]
+        // alert("f(c) = " + f(c).toString());
         if ( (f(c)==0.0) || ( (b-a)/2.0 < TOL) )
         {
            root = c; // we have found a root, to within tolerance
+           // alert("Root found after " + n.toString() + " iterations");
            break; // get out of the while loop
         }
+        n = n + 1;
+        // Decide how to construct the next interval [a,b]
+        if ( sign(f(c))==sign(f(a)) )
+        {
+           a = c;
+        }
+        else
+        {
+           b = c;
+        }        
     }   //   end while (n <= NMAX)
-    n = n + 1; // increment the iteration counter
 
-    // Decide how to construct the next interval [a,b]
-    if ( sign(f(c))==sign(f(a)) )
-    {
-        a = c;
-    }
-    else
-    {
-        b = c;
-    }
-    
     return root;
 }
 
@@ -217,6 +220,7 @@ class Mortgage
 
     computeAnnualInterestRateAsAPercent() : number
     {
+        alert ("typeof(this) = " + typeof(this).toString());
         var i : number = -1;
         const TOL : number = 0.000001;
         const NMAX : number = 100;
@@ -228,11 +232,19 @@ class Mortgage
 
     initialLoanMinusLoanAsAFunctionOfMonthlyRate(i : number) : number
     {
+        alert("this = " + this.toString());
+        alert("i = " + i.toString());
         var j : number = i/1200; // note, we convert i to j and only use j below
+        alert("j = " + j.toString());
         var L : number = this.initialLoan;
+        alert("L = " + L.toString());
         var n : number = this.numberOfYears*12;
+        alert("n = " + n.toString());
         var a : number = pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(j, n); // Note, we use the converted value j obtained from i
+        alert("a = " + a.toString());
         var P : number = this.monthlyPayment;
+        alert("P = " + P.toString());
+        alert("L - P*a = " + (L - P*a).toString());
         return L - P*a;
     }
 
@@ -304,6 +316,53 @@ function testComputeNumberOfMonths()
     document.writeln("<p>Leaving testComputeNumberOfMonths()</p>");
 }
 
+function testComputeAnnualInterestRateAsAPercent()
+{
+    document.writeln("<p>Entering testComputeAnnualInterestRateAsAPercent()</p>");
+    
+    var initialLoan : number = 200000;
+    var numberOfYears : number = 30.0;
+    var monthlyPayment : number = 898.0893756176412; // we are putting it in very precisely
+    
+    document.writeln("<p>initialLoan = " + initialLoan.toString() + "</p>");
+    document.writeln("<p>numberOfYears = " + numberOfYears.toString() + "</p>");
+    document.writeln("<p>monthlyPayment = " + monthlyPayment.toString() + "</p>");
+   
+    var M : Mortgage = new Mortgage(initialLoan, -1, numberOfYears, monthlyPayment);
+    var annualInterestRateAsAPercent : number = M.computeAnnualInterestRateAsAPercent();
+
+    document.writeln("<p>annualInterestRateAsAPercent = " + annualInterestRateAsAPercent.toString() + "</p>");
+    
+    document.writeln("<p>Leaving testComputeAnnualInterestRateAsAPercent()</p>");
+}
+
+function testFindRootUsingBisection()
+{
+    document.writeln("<p>Entering testFindRootUsingBisection()</p>");
+    var a : number = 0.0;
+    var b : number = 2.0;
+    var TOL : number = 0.000001;
+    var NMAX : number = 100;
+    var root : number = findRootUsingBisection(a, b, xSquaredMinusTwo, TOL, NMAX)
+    document.writeln("<p>root = " + root.toString());
+    var error : number = Math.abs(root - Math.sqrt(2.0);
+    document.writeln("<p>error = " + error.toString()); 
+    root = findRootUsingBisection(a, b, xCubedMinusSix, TOL, NMAX)
+    document.writeln("<p>root = " + root.toString());
+    error = Math.abs(root - Math.pow(6.0, (1.0/3.0));
+    document.writeln("<p>error = " + error.toString()); 
+    document.writeln("<p>Leaving testFindRootUsingBisection()</p>");  
+}
+
+function xSquaredMinusTwo(x : number) : number
+{
+    return x*x - 2.0;
+}
+
+function xCubedMinusSix(x : number) : number
+{
+    return x*x*x - 6.0;
+}
 
 function doTests()
 {
@@ -311,6 +370,8 @@ function doTests()
     testComputeMonthlyPayment();
     testComputeInitialLoan();
     testComputeNumberOfMonths();
+    testFindRootUsingBisection();
+    // testComputeAnnualInterestRateAsAPercent();
     document.writeln("<p>Leaving doTests()</p>");
 }
 
