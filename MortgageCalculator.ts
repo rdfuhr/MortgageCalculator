@@ -239,6 +239,10 @@ function initialLoanMinusLoanAsAFunctionOfMonthlyRate(i : number, M : Mortgage) 
     return L - P*a;
 }
 
+function HandleSolveForRadioButtonChange()
+{
+}
+
 // http://www.moneychimp.com/calculator/mortgage_calculator.htm
 // http://www.bankrate.com/calculators/mortgages/mortgage-calculator-b.aspx
 // http://www.calculator.com/pantaserv/mortgage_s.calc

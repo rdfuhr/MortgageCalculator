@@ -39,6 +39,48 @@
         <table>
             <tr>
                 <td>
+                    <label >Solve For:&nbsp</label>
+                </td>
+                     
+                <td>
+                    <div>  
+                       <input type="radio" 
+                              name="Unknown" 
+                              value="Loan" 
+                              id="radLoan" 
+                              onchange="HandleSolveForRadioButtonChange()"
+                              >
+                              Loan<br>
+                     
+                       <input type="radio" 
+                              name="Unknown"
+                              value="Interest" 
+                              id="radInterest"
+                              onchange="HandleSolveForRadioButtonChange()"
+                              >
+                              Annual Interest<br> 
+
+                       <input type="radio" 
+                              name="Unknown" 
+                              value="Total Years" 
+                              id="radYears" 
+                              onchange="HandleSolveForRadioButtonChange()"
+                              >
+                              Years<br>
+                     
+                       <input type="radio" 
+                              name="Unknown"
+                              value="Monthly Payment" 
+                              id="radPayment"
+                              onchange="HandleSolveForRadioButtonChange()"
+                              checked>
+                              Monthly Payment<br>                               
+                     </div>
+                </td> 
+                <td>
+                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                </td>     
+                <td>
                     <input type="text" id="txtInputLoan" placeholder="Original Loan"/>
                 </td>
                 <td>
