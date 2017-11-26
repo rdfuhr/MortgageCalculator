@@ -254,30 +254,25 @@ function UpdateGlobalSolveForBasedOnRadioButton()
             if (curItem.value=="Loan")
             {
                 globalSolveFor = SolveFor.Loan;
-                alert("Loan");
                 break;
             }
             else if (curItem.value=="Interest")
             {
                 globalSolveFor = SolveFor.Interest;
-                alert("Interest");
                 break;
             }
             else if (curItem.value=="Years")
             {
                 globalSolveFor = SolveFor.Years;
-                alert("Years");
                 break;
             }
             else if (curItem.value=="Payment")
             {
                 globalSolveFor = SolveFor.Payment;
-                alert("Payment");
                 break;
             }
         }
     }
-
 }
 
 
