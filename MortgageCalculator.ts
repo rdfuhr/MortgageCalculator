@@ -244,8 +244,43 @@ function initialLoanMinusLoanAsAFunctionOfMonthlyRate(i : number, M : Mortgage) 
 
 function UpdateGlobalSolveForBasedOnRadioButton()
 {
+    var possibleSolveFors : NodeListOf<HTMLElement> = document.getElementsByName('SolveFor');
+    var n = possibleSolveFors.length
+    for (let i : number = 0; i < n; i++)
+    {
+        var curItem : HTMLInputElement = <HTMLInputElement> possibleSolveFors[i];
+        if (curItem.checked)
+        {
+            if (curItem.value=="Loan")
+            {
+                globalSolveFor = SolveFor.Loan;
+                alert("Loan");
+                break;
+            }
+            else if (curItem.value=="Interest")
+            {
+                globalSolveFor = SolveFor.Interest;
+                alert("Interest");
+                break;
+            }
+            else if (curItem.value=="Years")
+            {
+                globalSolveFor = SolveFor.Years;
+                alert("Years");
+                break;
+            }
+            else if (curItem.value=="Payment")
+            {
+                globalSolveFor = SolveFor.Payment;
+                alert("Payment");
+                break;
+            }
+        }
+    }
 
 }
+
+
 
 function HandleSolveForRadioButtonChange()
 {

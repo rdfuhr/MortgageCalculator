@@ -50,7 +50,7 @@
                               id="radLoan" 
                               onchange="HandleSolveForRadioButtonChange()"
                               >
-                              Loan<br>
+                              Original Loan<br>
                      
                        <input type="radio" 
                               name="SolveFor"
@@ -58,19 +58,19 @@
                               id="radInterest"
                               onchange="HandleSolveForRadioButtonChange()"
                               >
-                              Annual Interest<br> 
+                              Annual Interest Rate<br> 
 
                        <input type="radio" 
                               name="SolveFor" 
-                              value="Total Years" 
+                              value="Years" 
                               id="radYears" 
                               onchange="HandleSolveForRadioButtonChange()"
                               >
-                              Years<br>
+                              Total Years<br>
                      
                        <input type="radio" 
                               name="SolveFor"
-                              value="Monthly Payment" 
+                              value="Payment" 
                               id="radPayment"
                               onchange="HandleSolveForRadioButtonChange()"
                               checked>
@@ -98,12 +98,12 @@
                     <table>
                         <tr>
                             <td>
-                                <input type="text" id="txtInputInterest" placeholder="Interest Rate"/>
+                                <input type="text" id="txtInputInterest" placeholder="Annual Interest Rate"/>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label for="txtInputInterest"> Interest Rate</label>
+                                <label for="txtInputInterest"> Annual Interest Rate</label>
                             </td>
                         </tr>
                     </table>
