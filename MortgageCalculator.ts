@@ -154,6 +154,9 @@ function sign(t : number) : number
 // Begin implementing counterparts for the code in the Objective-C file 
 // /Users/richardfuhr/Documents/Sandbox/XcodeLearn/Mortgage/Mortgage/Mortgage.m
 
+enum SolveFor{Loan, Interest, Years, Payment}
+var globalSolveFor : SolveFor;
+
 class Mortgage
 {   // Begin class Mortgage
     initialLoan : number;
