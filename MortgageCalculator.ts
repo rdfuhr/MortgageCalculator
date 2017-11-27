@@ -275,12 +275,65 @@ function UpdateGlobalSolveForBasedOnRadioButton()
     }
 }
 
+function UpdateTextInputFieldsBasedOnRadioButton()
+{
+    var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
+    var txtInputInterest : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputInterest");
+    var txtInputYears : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputYears");
+    var txtInputPayment : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputPayment");
+    txtInputLoan.disabled = false;
+    txtInputInterest.disabled = false;
+    txtInputYears.disabled = false;
+    txtInputPayment.disabled = false;
+    txtInputLoan.value = ""; // we may want to save old values
+    txtInputInterest.value = ""; // we may want to save old values
+    txtInputYears.value = ""; // we may want to save old values
+    txtInputPayment.value = ""; // we may want to save old values
+
+    var possibleSolveFors : NodeListOf<HTMLElement> = document.getElementsByName('SolveFor');
+    var n = possibleSolveFors.length
+    for (let i : number = 0; i < n; i++)
+    {
+        var curItem : HTMLInputElement = <HTMLInputElement> possibleSolveFors[i];
+        if (curItem.checked)
+        {
+            if (curItem.value=="Loan")
+            {
+                txtInputLoan.disabled = true;
+                txtInputLoan.value = "To be computed";
+                break;
+            }
+            else if (curItem.value=="Interest")
+            {
+                txtInputInterest.disabled = true;
+                txtInputInterest.value = "To be computed";
+                break;
+            }
+            else if (curItem.value=="Years")
+            {
+                txtInputYears.disabled = true;
+                txtInputYears.value = "To be computed";
+                break;
+            }
+            else if (curItem.value=="Payment")
+            {
+                txtInputPayment.disabled = true;
+                txtInputPayment.value = "To be computed";         
+                break;
+            }
+        }
+    }
+}
+
 
 
 function HandleSolveForRadioButtonChange()
 {
     UpdateGlobalSolveForBasedOnRadioButton();
+    UpdateTextInputFieldsBasedOnRadioButton();
 }
+
+window.onload = HandleSolveForRadioButtonChange;
 
 //***************************** TESTS ******************************/
 
