@@ -333,6 +333,64 @@ function HandleSolveForRadioButtonChange()
     UpdateTextInputFieldsBasedOnRadioButton();
 }
 
+function Compute()
+{
+    var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
+    var txtInputInterest : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputInterest");
+    var txtInputYears : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputYears");
+    var txtInputPayment : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputPayment");
+
+    var strInitialLoan : string = txtInputLoan.value;
+    var strAnnualInterestRateAsAPercent : string = txtInputInterest.value;
+    var strNumberOfYears : string = txtInputYears.value;
+    var strMonthlyPayment : string = txtInputPayment.value;
+
+    var initialLoan : number = parseFloat(strInitialLoan);
+    var annualInterestRateAsAPercent : number = parseFloat(strAnnualInterestRateAsAPercent);
+    var numberOfYears : number = parseFloat(strNumberOfYears);
+    var monthlyPayment : number = parseFloat(strMonthlyPayment);
+
+    if (globalSolveFor==SolveFor.Loan)
+    {
+        initialLoan = -1.0;
+        let MyMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
+        initialLoan = MyMortgage.computeInitialLoan();
+        txtInputLoan.value = roundUp(initialLoan).toString();
+    }
+    else if (globalSolveFor==SolveFor.Interest)
+    {
+        annualInterestRateAsAPercent = -1.0;
+        let MyMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
+        annualInterestRateAsAPercent = MyMortgage.computeAnnualInterestRateAsAPercent();
+        txtInputInterest.value = roundUp(annualInterestRateAsAPercent).toString();
+    }
+    else if (globalSolveFor==SolveFor.Years)
+    {
+        numberOfYears = -1.0;
+        let MyMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
+        var numberOfMonths = MyMortgage.computeNumberOfMonths();
+        numberOfYears = numberOfMonths/12.0;
+        txtInputYears.value = roundUp(numberOfYears).toString();
+    }
+    else if (globalSolveFor==SolveFor.Payment)
+    {
+        monthlyPayment = -1.0;
+        let MyMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
+        monthlyPayment = MyMortgage.computeMonthlyPayment();
+        txtInputPayment.value = roundUp(monthlyPayment).toString();
+    }
+}
+
+function Graph()
+{
+    alert("Graph");
+}
+
+function Help()
+{
+    alert("Help");
+}
+
 window.onload = HandleSolveForRadioButtonChange;
 
 //***************************** TESTS ******************************/
