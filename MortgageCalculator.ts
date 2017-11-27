@@ -350,19 +350,40 @@ function Compute()
     var numberOfYears : number = parseFloat(strNumberOfYears);
     var monthlyPayment : number = parseFloat(strMonthlyPayment);
 
+    if (globalSolveFor!=SolveFor.Loan && isNaN(initialLoan))
+    {
+        alert("Please enter a number for the loan");
+        return;
+    }
+    if (globalSolveFor!=SolveFor.Interest && isNaN(annualInterestRateAsAPercent))
+    {
+        alert("Please enter a number for the interest");
+        return;
+    }
+    if (globalSolveFor!=SolveFor.Years && isNaN(numberOfYears))
+    {
+        alert("Please enter a number for the years");
+        return;
+    }
+    if (globalSolveFor!=SolveFor.Payment && isNaN(monthlyPayment))
+    {
+        alert("Please enter a number for the payment");
+        return;
+    }       
+
     if (globalSolveFor==SolveFor.Loan)
     {
         initialLoan = -1.0;
         let MyMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
         initialLoan = MyMortgage.computeInitialLoan();
-        txtInputLoan.value = roundUp(initialLoan).toString();
+        txtInputLoan.value = initialLoan.toFixed(2).toString();
     }
     else if (globalSolveFor==SolveFor.Interest)
     {
         annualInterestRateAsAPercent = -1.0;
         let MyMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
         annualInterestRateAsAPercent = MyMortgage.computeAnnualInterestRateAsAPercent();
-        txtInputInterest.value = roundUp(annualInterestRateAsAPercent).toString();
+        txtInputInterest.value = annualInterestRateAsAPercent.toFixed(3).toString();
     }
     else if (globalSolveFor==SolveFor.Years)
     {
