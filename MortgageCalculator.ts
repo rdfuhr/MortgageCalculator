@@ -390,6 +390,11 @@ function Compute()
     {
         annualInterestRateAsAPercent = -1.0;
         let MyMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
+        if (numberOfYears*12.0*monthlyPayment < initialLoan)
+        {
+            txtInputInterest.value = "Monthly pmts too low";
+            return;
+        }
         annualInterestRateAsAPercent = MyMortgage.computeAnnualInterestRateAsAPercent();
         if (annualInterestRateAsAPercent >= 0.0)
         {
@@ -397,7 +402,7 @@ function Compute()
         }
         else
         {
-            txtInputInterest.value = "Monthly payments too low";
+            txtInputInterest.value = "Monthly pmts too high";
         }
     }
     else if (globalSolveFor==SolveFor.Years)
