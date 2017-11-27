@@ -285,10 +285,11 @@ function UpdateTextInputFieldsBasedOnRadioButton()
     txtInputInterest.disabled = false;
     txtInputYears.disabled = false;
     txtInputPayment.disabled = false;
-    txtInputLoan.value = ""; // we may want to save old values
-    txtInputInterest.value = ""; // we may want to save old values
-    txtInputYears.value = ""; // we may want to save old values
-    txtInputPayment.value = ""; // we may want to save old values
+    const ToBeComputed : string = "To be computed";
+    if (txtInputLoan.value==ToBeComputed) txtInputLoan.value = ""; 
+    if (txtInputInterest.value==ToBeComputed) txtInputInterest.value = ""; 
+    if (txtInputYears.value==ToBeComputed) txtInputYears.value = ""; 
+    if (txtInputPayment.value==ToBeComputed) txtInputPayment.value = "";
 
     var possibleSolveFors : NodeListOf<HTMLElement> = document.getElementsByName('SolveFor');
     var n = possibleSolveFors.length
@@ -300,25 +301,25 @@ function UpdateTextInputFieldsBasedOnRadioButton()
             if (curItem.value=="Loan")
             {
                 txtInputLoan.disabled = true;
-                txtInputLoan.value = "To be computed";
+                txtInputLoan.value = ToBeComputed;
                 break;
             }
             else if (curItem.value=="Interest")
             {
                 txtInputInterest.disabled = true;
-                txtInputInterest.value = "To be computed";
+                txtInputInterest.value = ToBeComputed;
                 break;
             }
             else if (curItem.value=="Years")
             {
                 txtInputYears.disabled = true;
-                txtInputYears.value = "To be computed";
+                txtInputYears.value = ToBeComputed;
                 break;
             }
             else if (curItem.value=="Payment")
             {
                 txtInputPayment.disabled = true;
-                txtInputPayment.value = "To be computed";         
+                txtInputPayment.value = ToBeComputed;         
                 break;
             }
         }
