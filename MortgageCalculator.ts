@@ -104,6 +104,13 @@ function findRootUsingBisection(a : number, // lower bound of interval containin
                                 ) : number // an approximation for the root
 {
     var root : number = a - 1; // initialize to error code
+    // check for invalid input and return if it is invalid
+    if (sign(f(a, data))==sign(f(b, data)))
+    {
+        return root;
+    }
+    // Begin normal case in which for original a and b we have
+    // sign(f(a, data)!=sign(f(b), data))
     var n : number = 1; // the iteration counter
     var c : number; // will be used as the midpoint of the current interval [a,b]
     while (n <= NMAX)
@@ -384,7 +391,14 @@ function Compute()
         annualInterestRateAsAPercent = -1.0;
         let MyMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
         annualInterestRateAsAPercent = MyMortgage.computeAnnualInterestRateAsAPercent();
-        txtInputInterest.value = annualInterestRateAsAPercent.toFixed(3).toString();
+        if (annualInterestRateAsAPercent >= 0.0)
+        {
+            txtInputInterest.value = annualInterestRateAsAPercent.toFixed(3).toString();
+        }
+        else
+        {
+            txtInputInterest.value = "Monthly payments too low";
+        }
     }
     else if (globalSolveFor==SolveFor.Years)
     {
