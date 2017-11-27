@@ -395,15 +395,20 @@ function Compute()
             txtInputInterest.value = "Monthly pmts too low";
             return;
         }
-        annualInterestRateAsAPercent = MyMortgage.computeAnnualInterestRateAsAPercent();
-        if (annualInterestRateAsAPercent >= 0.0)
-        {
-            txtInputInterest.value = annualInterestRateAsAPercent.toFixed(3).toString();
-        }
         else
         {
-            txtInputInterest.value = "Monthly pmts too high";
+            let ridiculouslyHighInterestRate : number = 100.0/1200.0;
+            let numberOfMonths : number = 12.0*numberOfYears;
+            let a : number = pvOfOrdinaryAnnuityWithPeriodicInterestRateAndNumberOfPeriods(ridiculouslyHighInterestRate, numberOfMonths);
+            let ridiculouslyHighMonthlyPayment: number = initialLoan/a;
+            if (monthlyPayment > ridiculouslyHighMonthlyPayment)
+            {
+                txtInputInterest.value = "Monthly pmts too high";
+                return;
+            }
         }
+        annualInterestRateAsAPercent = MyMortgage.computeAnnualInterestRateAsAPercent();
+        txtInputInterest.value = annualInterestRateAsAPercent.toFixed(3).toString();
     }
     else if (globalSolveFor==SolveFor.Years)
     {
