@@ -427,6 +427,26 @@ function Compute()
     }
 }
 
+function ComputeLoan()
+{
+    Compute();
+}
+
+function ComputeInterest()
+{
+    Compute();
+}
+
+function ComputeYears()
+{
+    Compute();
+}
+
+function ComputePayment()
+{
+    Compute();
+}
+
 function Graph()
 {
     alert("Graph");
