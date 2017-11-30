@@ -412,7 +412,12 @@ function Compute()
     {
         alert("Please enter a positive number for the payment");
         return;
-    }                 
+    }
+    if (globalSolveFor==SolveFor.Years && monthlyPayment <= (annualInterestRateAsAPercent/1200.0)*initialLoan)   
+    {
+        alert("Monthly payment is too low to ever pay off the loan with given interest rate")
+        return;
+    }              
 
     if (globalSolveFor==SolveFor.Loan)
     {
