@@ -392,7 +392,27 @@ function Compute()
     {
         alert("Please enter a number for the payment");
         return;
-    }       
+    }
+    if (globalSolveFor!=SolveFor.Loan && initialLoan<0.0)
+    {
+        alert("Please enter a non-negative number for the loan");
+        return;
+    }
+    if (globalSolveFor!=SolveFor.Interest && annualInterestRateAsAPercent<0.0)
+    {
+        alert("Please enter a non-negative number for the interest");
+        return;
+    }
+    if (globalSolveFor!=SolveFor.Years && numberOfYears<=0.0)
+    {
+        alert("Please enter a positive number for the years");
+        return;
+    }
+    if (globalSolveFor!=SolveFor.Payment && monthlyPayment<=0.0)
+    {
+        alert("Please enter a positive number for the payment");
+        return;
+    }                 
 
     if (globalSolveFor==SolveFor.Loan)
     {
