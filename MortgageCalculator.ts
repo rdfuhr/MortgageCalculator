@@ -292,11 +292,22 @@ function UpdateTextInputFieldsBasedOnRadioButton()
     txtInputInterest.disabled = false;
     txtInputYears.disabled = false;
     txtInputPayment.disabled = false;
+   
     const ToBeComputed : string = "To be computed";
     if (txtInputLoan.value==ToBeComputed) txtInputLoan.value = ""; 
     if (txtInputInterest.value==ToBeComputed) txtInputInterest.value = ""; 
     if (txtInputYears.value==ToBeComputed) txtInputYears.value = ""; 
     if (txtInputPayment.value==ToBeComputed) txtInputPayment.value = "";
+
+    var btnComputeLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("btnComputeLoan");
+    var btnComputeInterest : HTMLInputElement = <HTMLInputElement>document.getElementById("btnComputeInterest");
+    var btnComputeYears : HTMLInputElement = <HTMLInputElement>document.getElementById("btnComputeYears");
+    var btnComputePayment : HTMLInputElement = <HTMLInputElement>document.getElementById("btnComputePayment"); 
+    
+    btnComputeLoan.disabled=true;
+    btnComputeInterest.disabled=true;
+    btnComputeYears.disabled=true;
+    btnComputePayment.disabled=true;
 
     var possibleSolveFors : NodeListOf<HTMLElement> = document.getElementsByName('SolveFor');
     var n = possibleSolveFors.length
@@ -309,24 +320,28 @@ function UpdateTextInputFieldsBasedOnRadioButton()
             {
                 txtInputLoan.disabled = true;
                 txtInputLoan.value = ToBeComputed;
+                btnComputeLoan.disabled=false;
                 break;
             }
             else if (curItem.value=="Interest")
             {
                 txtInputInterest.disabled = true;
                 txtInputInterest.value = ToBeComputed;
+                btnComputeInterest.disabled=false;
                 break;
             }
             else if (curItem.value=="Years")
             {
                 txtInputYears.disabled = true;
                 txtInputYears.value = ToBeComputed;
+                btnComputeYears.disabled=false;
                 break;
             }
             else if (curItem.value=="Payment")
             {
                 txtInputPayment.disabled = true;
-                txtInputPayment.value = ToBeComputed;         
+                txtInputPayment.value = ToBeComputed;
+                btnComputePayment.disabled=false;         
                 break;
             }
         }
