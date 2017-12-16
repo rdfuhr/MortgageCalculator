@@ -292,6 +292,14 @@ function UpdateTextInputFieldsBasedOnRadioButton()
     txtInputInterest.disabled = false;
     txtInputYears.disabled = false;
     txtInputPayment.disabled = false;
+    txtInputLoan.style.fontStyle = "normal";
+    txtInputInterest.style.fontStyle = "normal";
+    txtInputYears.style.fontStyle = "normal";
+    txtInputPayment.style.fontStyle = "normal";
+    txtInputLoan.style.color = "black";
+    txtInputInterest.style.color = "black";
+    txtInputYears.style.color = "black";
+    txtInputPayment.style.color = "black";
    
     const ToBeComputed : string = "To be computed";
     if (txtInputLoan.value==ToBeComputed) txtInputLoan.value = ""; 
@@ -320,6 +328,8 @@ function UpdateTextInputFieldsBasedOnRadioButton()
             {
                 txtInputLoan.disabled = true;
                 txtInputLoan.value = ToBeComputed;
+                txtInputLoan.style.fontStyle = "italic";
+                txtInputLoan.style.color = "blue";
                 btnComputeLoan.disabled=false;
                 break;
             }
@@ -327,6 +337,8 @@ function UpdateTextInputFieldsBasedOnRadioButton()
             {
                 txtInputInterest.disabled = true;
                 txtInputInterest.value = ToBeComputed;
+                txtInputInterest.style.fontStyle = "italic";
+                txtInputInterest.style.color = "blue";
                 btnComputeInterest.disabled=false;
                 break;
             }
@@ -334,6 +346,8 @@ function UpdateTextInputFieldsBasedOnRadioButton()
             {
                 txtInputYears.disabled = true;
                 txtInputYears.value = ToBeComputed;
+                txtInputYears.style.fontStyle = "italic";
+                txtInputYears.style.color = "blue";
                 btnComputeYears.disabled=false;
                 break;
             }
@@ -341,7 +355,9 @@ function UpdateTextInputFieldsBasedOnRadioButton()
             {
                 txtInputPayment.disabled = true;
                 txtInputPayment.value = ToBeComputed;
-                btnComputePayment.disabled=false;         
+                txtInputPayment.style.fontStyle = "italic";
+                txtInputPayment.style.color = "blue";
+                btnComputePayment.disabled=false;  
                 break;
             }
         }
