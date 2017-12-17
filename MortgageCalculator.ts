@@ -353,7 +353,7 @@ function UpdateTextInputFieldsBasedOnRadioButton()
                 txtInputYears.disabled = true;
                 txtInputYears.value = ToBeComputed;
                 txtInputYears.style.fontStyle = "italic";
-                txtInputInterest.style.fontWeight = "bold";
+                txtInputYears.style.fontWeight = "bold";
                 txtInputYears.style.color = "blue";
                 btnComputeYears.disabled=false;
                 break;
