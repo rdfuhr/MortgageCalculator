@@ -296,6 +296,10 @@ function UpdateTextInputFieldsBasedOnRadioButton()
     txtInputInterest.style.fontStyle = "normal";
     txtInputYears.style.fontStyle = "normal";
     txtInputPayment.style.fontStyle = "normal";
+    txtInputLoan.style.fontWeight = "normal";
+    txtInputInterest.style.fontWeight = "normal";
+    txtInputYears.style.fontWeight = "normal";
+    txtInputPayment.style.fontWeight = "normal";
     txtInputLoan.style.color = "black";
     txtInputInterest.style.color = "black";
     txtInputYears.style.color = "black";
@@ -329,6 +333,7 @@ function UpdateTextInputFieldsBasedOnRadioButton()
                 txtInputLoan.disabled = true;
                 txtInputLoan.value = ToBeComputed;
                 txtInputLoan.style.fontStyle = "italic";
+                txtInputLoan.style.fontWeight = "bold";
                 txtInputLoan.style.color = "blue";
                 btnComputeLoan.disabled=false;
                 break;
@@ -338,6 +343,7 @@ function UpdateTextInputFieldsBasedOnRadioButton()
                 txtInputInterest.disabled = true;
                 txtInputInterest.value = ToBeComputed;
                 txtInputInterest.style.fontStyle = "italic";
+                txtInputInterest.style.fontWeight = "bold";
                 txtInputInterest.style.color = "blue";
                 btnComputeInterest.disabled=false;
                 break;
@@ -347,6 +353,7 @@ function UpdateTextInputFieldsBasedOnRadioButton()
                 txtInputYears.disabled = true;
                 txtInputYears.value = ToBeComputed;
                 txtInputYears.style.fontStyle = "italic";
+                txtInputInterest.style.fontWeight = "bold";
                 txtInputYears.style.color = "blue";
                 btnComputeYears.disabled=false;
                 break;
@@ -356,6 +363,7 @@ function UpdateTextInputFieldsBasedOnRadioButton()
                 txtInputPayment.disabled = true;
                 txtInputPayment.value = ToBeComputed;
                 txtInputPayment.style.fontStyle = "italic";
+                txtInputPayment.style.fontWeight = "bold";
                 txtInputPayment.style.color = "blue";
                 btnComputePayment.disabled=false;  
                 break;
