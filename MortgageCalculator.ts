@@ -513,6 +513,33 @@ function ComputePayment()
     Compute();
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// getDrawingCanvas
+// Get the drawing canvas
+//
+// returns: the drawing canvas
+////////////////////////////////////////////////////////////////////////////////
+function getDrawingCanvas() : HTMLCanvasElement
+{
+   // var document : Document;
+   var drawingCanvas : HTMLCanvasElement =
+     <HTMLCanvasElement>document.getElementById('drawingCanvas');
+   return drawingCanvas;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// getDrawingContext
+// Get the drawing context
+//
+// returns: the drawing context
+////////////////////////////////////////////////////////////////////////////////
+function getDrawingContext() : CanvasRenderingContext2D
+{
+  var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
+  var drawingContext : CanvasRenderingContext2D = <CanvasRenderingContext2D> drawingCanvas.getContext('2d');
+  return drawingContext;
+}
+
 function Graph()
 {
     Compute();
@@ -536,11 +563,83 @@ function Graph()
     var numberOfYearsValid : boolean = !(isNaN(numberOfYears));
     var monthlyPaymentValid : boolean = !(isNaN(monthlyPayment));
 
-    alert("initialLoanValid = " + initialLoanValid.toString());
-    alert("annualInterestRateAsAPercentValid = " + annualInterestRateAsAPercentValid.toString());
-    alert("numberOfYearsValid = " + numberOfYearsValid.toString());
-    alert("monthlyPaymentValid = " + monthlyPaymentValid.toString());
-    alert("Graph");
+    // alert("initialLoanValid = " + initialLoanValid.toString());
+    // alert("annualInterestRateAsAPercentValid = " + annualInterestRateAsAPercentValid.toString());
+    // alert("numberOfYearsValid = " + numberOfYearsValid.toString());
+    // alert("monthlyPaymentValid = " + monthlyPaymentValid.toString());
+    // alert("Graph");
+
+    var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
+    var drawingContext : CanvasRenderingContext2D = getDrawingContext();
+    drawingContext.save();
+    var width : number = drawingCanvas.width;
+    var height : number = drawingCanvas.height;
+    drawingContext.clearRect(0.0, 0.0, width, height);
+    // alert("width = " + width.toString());
+    // alert("height = " + height.toString());
+
+    // drawingContext.strokeStyle = "orange";
+    // drawingContext.beginPath();
+    // drawingContext.moveTo(0, 0.25*height);
+    // drawingContext.lineTo(width, 0.25*height);
+    // drawingContext.stroke();
+    // drawingContext.strokeStyle = "blue";
+    // drawingContext.beginPath();
+    // drawingContext.moveTo(0, 0.35*height);
+    // drawingContext.lineTo(width, 0.35*height);
+    // drawingContext.stroke();    
+
+    // drawingContext.translate(0.0, height);
+    // drawingContext.scale(1, -1);
+
+    // drawingContext.strokeStyle = "red";
+    // drawingContext.beginPath();
+    // drawingContext.moveTo(0, 0.25*height);
+    // drawingContext.lineTo(width, 0.25*height);
+    // drawingContext.stroke();
+    // drawingContext.strokeStyle = "green";
+    // drawingContext.beginPath();
+    // drawingContext.moveTo(0, 0.35*height);
+    // drawingContext.lineTo(width, 0.35*height);
+    // drawingContext.stroke();    
+    // drawingContext.restore();
+
+
+    drawingContext.translate(0.0, height);
+    drawingContext.scale(1.0, -1.0);
+    var numberOfMonths : number = 12*numberOfYears;
+    var xScaleFac : number = width/numberOfMonths;
+    var yScaleFac : number = height/initialLoan;  
+    drawingContext.scale(xScaleFac, yScaleFac);
+
+    // drawingContext.beginPath();
+    // var xVal : number = 0.0;
+    // var yVal : number = 0.1*initialLoan;
+    // drawingContext.moveTo(xVal, yVal);
+    // xVal = numberOfMonths;
+    // drawingContext.lineTo(xVal, yVal);
+    drawingContext.lineWidth = 5.0*Math.min(1.0/yScaleFac, 1.0/xScaleFac); // this makes a big difference
+    // drawingContext.stroke();
+
+    var xVal : number;
+    var yVal : number;
+    var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
+    drawingContext.beginPath();
+
+    var i : number;
+    var remainingPrincipal = initialLoan;
+    drawingContext.moveTo(0.0, initialLoan);    
+    for (i = 1; i <= numberOfMonths; i++)
+    {
+        remainingPrincipal = remainingPrincipal*(1.0 + monthlyInterestRate);
+        remainingPrincipal = remainingPrincipal - monthlyPayment;
+        xVal = i;
+        yVal = remainingPrincipal;
+        drawingContext.lineTo(xVal, yVal);
+    } 
+    drawingContext.stroke();
+
+    drawingContext.restore();
 }
 
 function Help()
