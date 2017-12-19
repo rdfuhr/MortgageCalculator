@@ -563,47 +563,12 @@ function Graph()
     var numberOfYearsValid : boolean = !(isNaN(numberOfYears));
     var monthlyPaymentValid : boolean = !(isNaN(monthlyPayment));
 
-    // alert("initialLoanValid = " + initialLoanValid.toString());
-    // alert("annualInterestRateAsAPercentValid = " + annualInterestRateAsAPercentValid.toString());
-    // alert("numberOfYearsValid = " + numberOfYearsValid.toString());
-    // alert("monthlyPaymentValid = " + monthlyPaymentValid.toString());
-    // alert("Graph");
-
     var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
     var drawingContext : CanvasRenderingContext2D = getDrawingContext();
     drawingContext.save();
     var width : number = drawingCanvas.width;
     var height : number = drawingCanvas.height;
     drawingContext.clearRect(0.0, 0.0, width, height);
-    // alert("width = " + width.toString());
-    // alert("height = " + height.toString());
-
-    // drawingContext.strokeStyle = "orange";
-    // drawingContext.beginPath();
-    // drawingContext.moveTo(0, 0.25*height);
-    // drawingContext.lineTo(width, 0.25*height);
-    // drawingContext.stroke();
-    // drawingContext.strokeStyle = "blue";
-    // drawingContext.beginPath();
-    // drawingContext.moveTo(0, 0.35*height);
-    // drawingContext.lineTo(width, 0.35*height);
-    // drawingContext.stroke();    
-
-    // drawingContext.translate(0.0, height);
-    // drawingContext.scale(1, -1);
-
-    // drawingContext.strokeStyle = "red";
-    // drawingContext.beginPath();
-    // drawingContext.moveTo(0, 0.25*height);
-    // drawingContext.lineTo(width, 0.25*height);
-    // drawingContext.stroke();
-    // drawingContext.strokeStyle = "green";
-    // drawingContext.beginPath();
-    // drawingContext.moveTo(0, 0.35*height);
-    // drawingContext.lineTo(width, 0.35*height);
-    // drawingContext.stroke();    
-    // drawingContext.restore();
-
 
     drawingContext.translate(0.0, height);
     drawingContext.scale(1.0, -1.0);
@@ -612,14 +577,7 @@ function Graph()
     var yScaleFac : number = height/initialLoan;  
     drawingContext.scale(xScaleFac, yScaleFac);
 
-    // drawingContext.beginPath();
-    // var xVal : number = 0.0;
-    // var yVal : number = 0.1*initialLoan;
-    // drawingContext.moveTo(xVal, yVal);
-    // xVal = numberOfMonths;
-    // drawingContext.lineTo(xVal, yVal);
     drawingContext.lineWidth = 5.0*Math.min(1.0/yScaleFac, 1.0/xScaleFac); // this makes a big difference
-    // drawingContext.stroke();
 
     var xVal : number;
     var yVal : number;
