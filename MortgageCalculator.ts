@@ -515,6 +515,31 @@ function ComputePayment()
 
 function Graph()
 {
+    Compute();
+    var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
+    var txtInputInterest : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputInterest");
+    var txtInputYears : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputYears");
+    var txtInputPayment : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputPayment");
+
+    var strInitialLoan : string = txtInputLoan.value;
+    var strAnnualInterestRateAsAPercent : string = txtInputInterest.value;
+    var strNumberOfYears : string = txtInputYears.value;
+    var strMonthlyPayment : string = txtInputPayment.value;
+
+    var initialLoan : number = parseFloat(strInitialLoan);
+    var annualInterestRateAsAPercent : number = parseFloat(strAnnualInterestRateAsAPercent);
+    var numberOfYears : number = parseFloat(strNumberOfYears);
+    var monthlyPayment : number = parseFloat(strMonthlyPayment);  
+    
+    var initialLoanValid : boolean = !(isNaN(initialLoan));
+    var annualInterestRateAsAPercentValid : boolean = !(isNaN(annualInterestRateAsAPercent));
+    var numberOfYearsValid : boolean = !(isNaN(numberOfYears));
+    var monthlyPaymentValid : boolean = !(isNaN(monthlyPayment));
+
+    alert("initialLoanValid = " + initialLoanValid.toString());
+    alert("annualInterestRateAsAPercentValid = " + annualInterestRateAsAPercentValid.toString());
+    alert("numberOfYearsValid = " + numberOfYearsValid.toString());
+    alert("monthlyPaymentValid = " + monthlyPaymentValid.toString());
     alert("Graph");
 }
 
