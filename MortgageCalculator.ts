@@ -578,6 +578,8 @@ function Graph()
     drawingContext.scale(xScaleFac, yScaleFac);
 
     drawingContext.lineWidth = 5.0*Math.min(1.0/yScaleFac, 1.0/xScaleFac); // this makes a big difference
+    drawingContext.lineCap = "square";
+    drawingContext.lineJoin = "bevel";
 
     var xVal : number;
     var yVal : number;
