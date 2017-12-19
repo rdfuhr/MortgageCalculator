@@ -164,6 +164,8 @@ function sign(t : number) : number
 enum SolveFor{Loan, Interest, Years, Payment}
 var globalSolveFor : SolveFor;
 
+enum MortgageParameters{Loan, Interest, Years, Payment, Time, ToInterest, ToPrincipal, RemainingPrincipal}
+
 class Mortgage
 {   // Begin class Mortgage
     initialLoan : number;
