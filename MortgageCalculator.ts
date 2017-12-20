@@ -689,6 +689,48 @@ return aPplusbQ;
 //   End Point code
 
 // Begin Line code
+class Line
+{   // Begin class Line
+    StartPt : Point;
+    EndPt : Point;
+
+  //////////////////////////////////////////////////////////////////////////////
+  // constructor for Line
+  // Creates an instance of Line
+  //
+  // input: StartPt - the starting point for this Line
+  // input: EndPt - the ending point for this Line
+  //
+  // Note:  To keep things simple, the domain of each line is will be [0,1].
+  //////////////////////////////////////////////////////////////////////////////
+  constructor(StartPt : Point,
+              EndPt : Point)
+    {
+      this.StartPt = StartPt;
+      this.EndPt = EndPt;
+    }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // toString - method of Line
+  // Returns the string representation of this Line
+  //
+  // returns: the string representation of this Line
+  //////////////////////////////////////////////////////////////////////////////
+  toString() : string
+  {
+     var stringRep : string = "Data for Line";
+
+     stringRep += "<p>";
+     stringRep += "StartPt = ";
+     stringRep += this.StartPt.toString();
+     stringRep += "<p>";
+     stringRep += "  EndPt = "
+     stringRep += this.EndPt.toString();
+     stringRep += "<p>";
+
+     return stringRep;
+  }
+}   //   End class Line
 //   End Line code
 
 // Begin Polyline code
