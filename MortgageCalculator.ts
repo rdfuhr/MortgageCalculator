@@ -579,9 +579,6 @@ function Graph()
 
     drawingContext.lineWidth = 5.0*Math.min(1.0/yScaleFac, 1.0/xScaleFac); // this makes a big difference
     
-    // drawingContext.lineCap = "square";
-    // drawingContext.lineJoin = "bevel";
-
     var xVal : number;
     var yVal : number;
     var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
@@ -599,33 +596,7 @@ function Graph()
         drawingContext.lineTo(xVal, yVal);
     } 
     drawingContext.stroke();
-
-    // var radius : number = drawingContext.lineWidth;
-    // for (i = 1; i <= numberOfMonths; i++)
-    // {
-    //     remainingPrincipal = remainingPrincipal*(1.0 + monthlyInterestRate);
-    //     remainingPrincipal = remainingPrincipal - monthlyPayment;
-    //     xVal = i;
-    //     yVal = remainingPrincipal;
-    //     drawingContext.beginPath();
-    //     drawingContext.arc(xVal, yVal, radius, 0, Math.PI*2, true);
-    //     drawingContext.fill();
-    // } 
-
-    // // begin experimental code
-    // const n : number = 5;
-    // drawingContext.fillStyle = "black";
-    // radius = n;
-    // for (i = 1; i <= n; i++)
-    // {
-    //    xVal = numberOfMonths*(i/n);
-    //    yVal = initialLoan/n;
-    //    drawingContext.beginPath()
-    //    drawingContext.arc(xVal, yVal, radius, 0, Math.PI*2, true);
-    //    drawingContext.fill();
-    // }
-    // //  end experiemental code
-
+    
     drawingContext.restore();
 }
 
