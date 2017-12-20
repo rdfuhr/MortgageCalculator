@@ -382,6 +382,11 @@ function HandleSolveForRadioButtonChange()
     UpdateTextInputFieldsBasedOnRadioButton();
 }
 
+function StartUp()
+{
+    HandleSolveForRadioButtonChange();
+}
+
 function Compute()
 {
     var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
@@ -512,6 +517,21 @@ function ComputePayment()
 {
     Compute();
 }
+
+// Begin Point code
+//   End Point code
+
+// Begin Line code
+//   End Line code
+
+// Begin Polyline code
+//   End Polyline code
+
+// Begin Transform code
+//   End Transform code
+
+// Begin DrawTransformed code
+//   End DrawTransformed code
 
 ////////////////////////////////////////////////////////////////////////////////
 // getDrawingCanvas
@@ -644,7 +664,7 @@ function Help()
     alert("Help");
 }
 
-window.onload = HandleSolveForRadioButtonChange;
+window.onload = StartUp;
 
 //***************************** TESTS ******************************/
 
