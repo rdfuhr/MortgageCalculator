@@ -542,6 +542,11 @@ function getDrawingContext() : CanvasRenderingContext2D
 
 function Graph()
 {
+    GraphWithTransformedCanvas();
+}
+
+function GraphWithTransformedCanvas()
+{
     Compute();
     var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
     var txtInputInterest : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputInterest");
@@ -598,6 +603,40 @@ function Graph()
     drawingContext.stroke();
     
     drawingContext.restore();
+}
+
+function GraphWithTransformedObjects()
+{
+    Compute();
+    var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
+    var txtInputInterest : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputInterest");
+    var txtInputYears : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputYears");
+    var txtInputPayment : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputPayment");
+
+    var strInitialLoan : string = txtInputLoan.value;
+    var strAnnualInterestRateAsAPercent : string = txtInputInterest.value;
+    var strNumberOfYears : string = txtInputYears.value;
+    var strMonthlyPayment : string = txtInputPayment.value;
+
+    var initialLoan : number = parseFloat(strInitialLoan);
+    var annualInterestRateAsAPercent : number = parseFloat(strAnnualInterestRateAsAPercent);
+    var numberOfYears : number = parseFloat(strNumberOfYears);
+    var monthlyPayment : number = parseFloat(strMonthlyPayment);  
+    
+    var initialLoanValid : boolean = !(isNaN(initialLoan));
+    var annualInterestRateAsAPercentValid : boolean = !(isNaN(annualInterestRateAsAPercent));
+    var numberOfYearsValid : boolean = !(isNaN(numberOfYears));
+    var monthlyPaymentValid : boolean = !(isNaN(monthlyPayment));
+
+    var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
+    var drawingContext : CanvasRenderingContext2D = getDrawingContext();
+    drawingContext.save();
+    var width : number = drawingCanvas.width;
+    var height : number = drawingCanvas.height;
+    drawingContext.clearRect(0.0, 0.0, width, height);
+
+    // TODO - Add the code that actually transforms and draws the objects
+
 }
 
 function Help()
