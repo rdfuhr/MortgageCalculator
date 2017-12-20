@@ -779,7 +779,7 @@ class PolyLine
 }   //   End class PolyLine
 //   End Polyline code
 
-// Begin Transform code
+// Begin ModelToViewTransform code
 // The goal of this section is to implement a class of transforms that
 // map model space to canvas space in this very specialized sense.
 // We may later enahace this after we have tested it a lot.
@@ -806,7 +806,68 @@ class PolyLine
 // c = (-h/ymax)
 // d = h
 //
-//   End Transform code
+class ModelToViewTransform
+{   // Begin class ModelToViewTransform
+    a : number;
+    b : number;
+    c : number;
+    d : number;
+
+    constructor(xmax : number, // maximum x in model space
+                ymax : number, // maximum y in model space
+                w : number,    // width of canvas
+                h : number)    // height of canvas
+    {
+        if ((xmax > 0.0) && (ymax > 0.0))
+        {
+            this.a = w/xmax;
+            this.b = 0.0;
+            this.c = (-1.0*h)/ymax;
+            this.d = h;
+
+        }
+        else
+        {
+            this.a = 0.0;
+            this.b = 0.0;
+            this.c = 0.0;
+            this.d = 0.0;
+        }
+    }
+
+    TransformPoint(P : Point) : Point
+    {
+        var transformedX = this.a*P.x + this.b;
+        var transformedY = this.c*P.y + this.d;
+        var transformedPoint : Point = new Point(transformedX, transformedY);
+        return transformedPoint;
+    }
+
+    TransformLine(L : Line) : Line
+    {
+        var transformedStartPt = this.TransformPoint(L.StartPt);
+        var transformedEndPt = this.TransformPoint(L.EndPt);
+        var transformedLine : Line = new Line(transformedStartPt, transformedEndPt);
+        return transformedLine;
+    }
+
+    TransformPolyline(PL : PolyLine) : PolyLine
+    {
+        var transformedPts : Array<Point> = new Array();
+        var nPts : number = PL.Pt.length;
+        var i : number;
+        for (i = 0; i < nPts; i++)
+        {
+            var transformedPti = this.TransformPoint(PL.Pt[i]);
+            transformedPts.push(transformedPti);
+        }
+        var transformedPolyLine : PolyLine = new PolyLine(transformedPts);
+        return transformedPolyLine;
+    }
+
+
+}   //   End class ModelToViewTransform
+//   End ModelToViewTransform code
 
 // Begin DrawTransformed code
 //   End DrawTransformed code
@@ -840,7 +901,8 @@ function getDrawingContext() : CanvasRenderingContext2D
 
 function Graph()
 {
-    GraphWithTransformedCanvas();
+    // GraphWithTransformedCanvas();
+    GraphWithTransformedObjects();
 }
 
 function GraphWithTransformedCanvas()
@@ -933,7 +995,30 @@ function GraphWithTransformedObjects()
     var height : number = drawingCanvas.height;
     drawingContext.clearRect(0.0, 0.0, width, height);
 
-    // TODO - Add the code that actually transforms and draws the objects
+    // Add the code that actually transforms and draws the objects
+    var numberOfMonths : number = 12*numberOfYears;
+
+    var T : ModelToViewTransform = new ModelToViewTransform(numberOfMonths, initialLoan, width, height);
+    var i : number;
+    var remainingPrincipal : number = initialLoan;
+    var xVal : number;
+    var yVal : number;
+    var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
+    drawingContext.beginPath();
+    var P : Point = new Point(0.0, initialLoan)
+    var Q : Point = T.TransformPoint(P);
+    drawingContext.moveTo(Q.x, Q.y);
+    for (i = 1; i <= numberOfMonths; i++)
+    {
+        remainingPrincipal = remainingPrincipal*(1.0 + monthlyInterestRate);
+        remainingPrincipal = remainingPrincipal - monthlyPayment;
+        xVal = i;
+        yVal = remainingPrincipal;
+        var pModel : Point = new Point(xVal, yVal);
+        var pView : Point = T.TransformPoint(pModel);
+        drawingContext.lineTo(pView.x, pView.y);
+    }
+    drawingContext.stroke();
 
 }
 
