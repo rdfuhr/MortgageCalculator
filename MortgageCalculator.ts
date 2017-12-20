@@ -519,6 +519,173 @@ function ComputePayment()
 }
 
 // Begin Point code
+class Point
+{ // Begin class Point
+  // To keep things more readable, I will not start the
+  // names of properties with underscores.
+  x : number;
+  y : number;
+
+  // To keep things more readable, I will use the same names
+  // for input parameters in the constructor as the corresponding
+  // property names.
+  // As a convention, if the class has a constructor, it will appear as
+  // the first function after the declaration of the class.
+
+  //////////////////////////////////////////////////////////////////////////////
+  // constructor for Point
+  // Creates an instance of a Point
+  //
+  // input: x - the x coordinate of the Point to be constructed
+  // input: y - the y coordinate of the Point to be constructed
+  //////////////////////////////////////////////////////////////////////////////
+  constructor(x : number,
+              y : number)
+  {
+    this.x = x;
+    this.y = y;
+  }
+
+  // As a convention, if the class has a toString() method, it will appear
+  // right after the constructor, if there is a constructor.  Otherwise, it
+  // will appear as the first method.
+
+  //////////////////////////////////////////////////////////////////////////////
+  // toString - method of Point
+  // Returns the string representation of this Point
+  //
+  // returns: the string representation of this Point
+  //////////////////////////////////////////////////////////////////////////////
+  toString() :  string
+  {
+  	return "("+this.x+", "+this.y+")";
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // norm - method of Point
+  // Returns the norm of this Point
+  //
+  // return: the norm of this Point
+  // note: we currently are not creating a separate Vector class
+  //////////////////////////////////////////////////////////////////////////////
+  norm() : number
+  {
+    return Math.sqrt((this.x*this.x)+(this.y*this.y));
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // plus - method of Point
+  // Returns the sum of this Point with another Point
+  //
+  // input: that - a Point to be added to this Point
+  // returns: this + that
+  //////////////////////////////////////////////////////////////////////////////
+  plus(that : Point) : Point
+  {
+     var x : number = this.x + that.x;
+     var y : number = this.y + that.y;
+     return new Point(x,y);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // minus - method of Point
+  // Returns the difference of this Point and another Point
+  //
+  // input: that - a Point to be subtracted from this Point
+  // returns: this - that
+  //////////////////////////////////////////////////////////////////////////////
+  minus(that : Point) : Point
+  {
+     var x : number = this.x - that.x;
+     var y : number = this.y - that.y;
+     return new Point(x,y);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // scalarMult - method of Point
+  // Returns a scalar multiple of this Point
+  //
+  // input: s - the scalar factor to be applied to this Point
+  // returns: s*this
+  //////////////////////////////////////////////////////////////////////////////
+  scalarMult(s : number) : Point
+  {
+     var x : number = s*this.x;
+     var y : number = s*this.y;
+     return new Point(x,y);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // dotProd - method of Point
+  // Returns the dot product of this Point with another Point
+  //
+  // input: that - a Point to be dotted with this Point
+  // returns: this*that
+  //////////////////////////////////////////////////////////////////////////////
+  dotProd(that : Point) : number
+  {
+     return this.x*that.x + this.y*that.y;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // distanceTo - method of Point
+  // Returns the distance from this Point to another Point
+  //
+  // input: that - a Point to which the distance is to be calculated
+  // returns: the distance between this Point and that Point
+  //////////////////////////////////////////////////////////////////////////////
+  distanceTo(that : Point) : number
+  {
+     var thisMinusThat : Point = this.minus(that);
+     var distanceToThat : number = thisMinusThat.norm();
+     return distanceToThat;
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // isEqualWithinToleranceTo - method of Point
+  // Determines whether two points are equal within tolerance
+  //
+  // input: that - a Point that is to be compared to this Point
+  // returns: true if this point is equal within tolerance to that point
+  //////////////////////////////////////////////////////////////////////////////
+  isEqualWithinToleranceTo(that : Point) : boolean
+  {
+     const pointEqualityTol : number = 0.000001;
+     var distanceToThat : number = this.distanceTo(that);
+     var equalWithinTolerance : boolean;
+     if (distanceToThat < pointEqualityTol)
+     {
+       equalWithinTolerance = true;
+     }
+     else
+     {
+       equalWithinTolerance = false;
+     }
+     return equalWithinTolerance;
+  }
+} // End class Point
+
+////////////////////////////////////////////////////////////////////////////////
+// linearCombination - utility function for Point (not a method of Point)
+// Computes a linear combination of two points
+//
+// input: a - scalar
+// input: P - Point
+// input: b - scalar
+// input: Q - Point
+// returns: a*P + b*Q
+////////////////////////////////////////////////////////////////////////////////
+function linearCombination(a : number,
+    P : Point,
+    b : number,
+    Q : Point) : Point
+{
+var aP : Point = P.scalarMult(a);
+var bQ : Point = Q.scalarMult(b);
+var aPplusbQ : Point = aP.plus(bQ);
+return aPplusbQ;
+}
+
 //   End Point code
 
 // Begin Line code
