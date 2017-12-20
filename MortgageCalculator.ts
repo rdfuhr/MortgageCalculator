@@ -701,7 +701,6 @@ class Line
   // input: StartPt - the starting point for this Line
   // input: EndPt - the ending point for this Line
   //
-  // Note:  To keep things simple, the domain of each line is will be [0,1].
   //////////////////////////////////////////////////////////////////////////////
   constructor(StartPt : Point,
               EndPt : Point)
@@ -734,6 +733,50 @@ class Line
 //   End Line code
 
 // Begin Polyline code
+class PolyLine
+{   // Begin class PolyLine
+    Pt : Array<Point>;
+
+  //////////////////////////////////////////////////////////////////////////////
+  // constructor for PolyLine
+  // Creates an instance of PolyLine
+  //
+  // input: Pt - An array of Point objects
+  //
+  //////////////////////////////////////////////////////////////////////////////
+  constructor(Pt : Array<Point>)
+  {
+    this.Pt = new Array();
+    const n : number = Pt.length;
+    for (let i = 0; i < n ; i++)
+    {
+      this.Pt.push(Pt[i]);
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // toString - method of PolyLine
+  // Returns the string representation of this PolyLine
+  //
+  // returns: the string representation of this PolyLine
+  //////////////////////////////////////////////////////////////////////////////
+  toString() : string
+  {
+     var stringRep : string = "Data for PolyLine";
+
+     const n : number = this.Pt.length;
+
+     for (let i : number = 0; i < n; i++)
+     {
+        stringRep += "<p>";
+        stringRep += "Pt[" + i.toString() + "] = ";
+        stringRep += this.Pt[i].toString();
+        stringRep += "<p>";
+     }
+
+     return stringRep;
+  }
+}   //   End class PolyLine
 //   End Polyline code
 
 // Begin Transform code
