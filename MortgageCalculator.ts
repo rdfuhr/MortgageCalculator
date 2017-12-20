@@ -780,6 +780,32 @@ class PolyLine
 //   End Polyline code
 
 // Begin Transform code
+// The goal of this section is to implement a class of transforms that
+// map model space to canvas space in this very specialized sense.
+// We may later enahace this after we have tested it a lot.
+//
+// For this implementation, model space is a rectangle with vertices
+// by (0,0),(xmax,0),(0,ymax),(xmax,ymax)
+//
+// Let the width of the canvas be w
+// Let the height of the canvas be h
+//
+// Because the positive direction of the canvas is down, we need
+// a transformation T that acts as follows, and is completely
+// determined by the following
+// T: (0,ymax)--->(0,0)
+// T: (0,0)--->(0,h)
+// T: (xmax,0)--->(w,h)
+//
+// The general form of T will be
+// T(x,y) = (a*x + b, c*y + d)
+//
+// So a T that satisfies the three conditions above will have
+// a = (w/xmax)
+// b = 0
+// c = (-h/ymax)
+// d = h
+//
 //   End Transform code
 
 // Begin DrawTransformed code
