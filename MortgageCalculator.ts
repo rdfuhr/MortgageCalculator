@@ -729,6 +729,24 @@ class Line
 
      return stringRep;
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // drawTransformed - method of Line
+  // Draws a transformed copy of this Line with specified appearance
+  //
+  // input:  transform - the ModelToViewTransform to be applied to this Line 
+  //         context - the context associated with the canvas
+  //////////////////////////////////////////////////////////////////////////////
+  drawTransformed(transform : ModelToViewTransform,
+                  context : CanvasRenderingContext2D)
+  {
+    var transformedLine : Line = transform.TransformLine(this)
+    context.beginPath();
+    context.moveTo(transformedLine.StartPt.x, transformedLine.StartPt.y);
+    context.lineTo(transformedLine.EndPt.x, transformedLine.EndPt.y);
+    context.stroke();
+  } 
+
 }   //   End class Line
 //   End Line code
 
@@ -776,6 +794,30 @@ class PolyLine
 
      return stringRep;
   }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // drawTransformed - method of PolyLine
+  // Draws a transformed copy of this PolyLine with specified appearance
+  //
+  // input:  transform - the ModelToViewTransform to be applied to this PolyLine 
+  //         context - the context associated with the canvas
+  //////////////////////////////////////////////////////////////////////////////
+  drawTransformed(transform : ModelToViewTransform,
+                  context : CanvasRenderingContext2D)
+  {
+    var transformedPolyLine : PolyLine = transform.TransformPolyLine(this)
+    context.beginPath();
+    var startPt : Point = transformedPolyLine.Pt[0];
+    context.moveTo(startPt.x, startPt.y);
+    var nPts = transformedPolyLine.Pt.length;
+    var i : number;
+    for (i = 1; i < nPts; i++)
+    {
+        var curPt : Point = transformedPolyLine.Pt[i];
+        context.lineTo(curPt.x, curPt.y);
+    }
+    context.stroke();
+  }  
 }   //   End class PolyLine
 //   End Polyline code
 
@@ -851,7 +893,7 @@ class ModelToViewTransform
         return transformedLine;
     }
 
-    TransformPolyline(PL : PolyLine) : PolyLine
+    TransformPolyLine(PL : PolyLine) : PolyLine
     {
         var transformedPts : Array<Point> = new Array();
         var nPts : number = PL.Pt.length;
