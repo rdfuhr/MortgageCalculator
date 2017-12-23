@@ -1037,31 +1037,6 @@ function GraphWithTransformedObjects()
     var height : number = drawingCanvas.height;
     drawingContext.clearRect(0.0, 0.0, width, height);
 
-    // // Add the code that actually transforms and draws the objects
-    // var numberOfMonths : number = 12*numberOfYears;
-
-    // var T : ModelToViewTransform = new ModelToViewTransform(numberOfMonths, initialLoan, width, height);
-    // var i : number;
-    // var remainingPrincipal : number = initialLoan;
-    // var xVal : number;
-    // var yVal : number;
-    // var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
-    // drawingContext.beginPath();
-    // var P : Point = new Point(0.0, initialLoan)
-    // var Q : Point = T.TransformPoint(P);
-    // drawingContext.moveTo(Q.x, Q.y);
-    // for (i = 1; i <= numberOfMonths; i++)
-    // {
-    //     remainingPrincipal = remainingPrincipal*(1.0 + monthlyInterestRate);
-    //     remainingPrincipal = remainingPrincipal - monthlyPayment;
-    //     xVal = i;
-    //     yVal = remainingPrincipal;
-    //     var pModel : Point = new Point(xVal, yVal);
-    //     var pView : Point = T.TransformPoint(pModel);
-    //     drawingContext.lineTo(pView.x, pView.y);
-    // }
-    // drawingContext.stroke();
-
     var numberOfMonths : number = 12*numberOfYears;
     var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
 
@@ -1078,10 +1053,6 @@ function GraphWithTransformedObjects()
         Pt.push(new Point(i, remainingPrincipal));
         if ((remainingPrincipal < 0.0) && (i < numberOfMonths))
         {
-            // var str1 : string = "remainingPrincipal is prematurely negative at month " + i.toString();
-            // var str2 : string = " which is early by " + (numberOfMonths -i).toString();
-            // alert(str1 + str2);
-            // We may want to annotate the graph in this situation
             break;
         }
     }
