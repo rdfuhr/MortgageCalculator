@@ -1008,6 +1008,7 @@ function GraphWithTransformedCanvas()
 function GraphWithTransformedObjects()
 {
     Compute();
+    
     var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
     var txtInputInterest : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputInterest");
     var txtInputYears : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputYears");
@@ -1058,7 +1059,6 @@ function GraphWithTransformedObjects()
     var PL = new PolyLine(Pt);
 
     PL.drawTransformed(T, drawingContext);
-
 }
 
 function Help()
