@@ -911,8 +911,6 @@ class ModelToViewTransform
 }   //   End class ModelToViewTransform
 //   End ModelToViewTransform code
 
-// Begin DrawTransformed code
-//   End DrawTransformed code
 
 ////////////////////////////////////////////////////////////////////////////////
 // getDrawingCanvas
