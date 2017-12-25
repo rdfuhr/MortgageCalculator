@@ -1190,8 +1190,28 @@ function GraphWithTransformedObjects3()
     txtInputPayment.value = "Y Axis";
 
     var PL : PolyLine = new PolyLine(Pt);
-
+    
+    drawingContext.strokeStyle = "black";
     PL.drawTransformed(T, drawingContext);
+
+    // The following is just for testing
+    drawingContext.strokeStyle = "red"
+    for (var i = 0; i <= maxAnnualInterestRateAsAPercent; i++)
+    {
+        let A : Point = new Point(i, 0);
+        let B : Point = new Point(i, maxMonthlyPayment);
+        let L : Line = new Line(A, B);
+        L.drawTransformed(T, drawingContext);
+    }
+
+    drawingContext.strokeStyle = "green"
+    for (var j = 0; j <= maxMonthlyPayment; j += 100)
+    {
+        let A : Point = new Point(0, j)
+        let B : Point = new Point(maxAnnualInterestRateAsAPercent, j);
+        let L : Line = new Line(A, B);
+        L.drawTransformed(T, drawingContext);
+    }
 }
 
 function Help()
