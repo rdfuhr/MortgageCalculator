@@ -1163,27 +1163,33 @@ function GraphWithTransformedObjects3()
     var height : number = drawingCanvas.height;
     drawingContext.clearRect(0.0, 0.0, width, height);
 
-    var numberOfMonths : number = 12*numberOfYears;
-    var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
+    var minAnnualInterestRateAsAPercent = 0.0;
+    var maxAnnualInterestRateAsAPercent = 24.0;
 
-    var T : ModelToViewTransform = new ModelToViewTransform(numberOfMonths, initialLoan, width, height);
-    var i : number;
-    var remainingPrincipal : number = initialLoan;
+    var theMortgage : Mortgage = new Mortgage(initialLoan, annualInterestRateAsAPercent, numberOfYears, monthlyPayment);
+    // Compute the extremes so we can build the transform
+    theMortgage.annualInterestRateAsAPercent = minAnnualInterestRateAsAPercent;
+    var minMonthlyPayment : number = theMortgage.computeMonthlyPayment();
+    theMortgage.annualInterestRateAsAPercent = maxAnnualInterestRateAsAPercent;
+    var maxMonthlyPayment : number = theMortgage.computeMonthlyPayment();
 
+    // TODO - We may have to generalize the way we build transforms, but for now, here it is
+    var T : ModelToViewTransform = new ModelToViewTransform(maxAnnualInterestRateAsAPercent, maxMonthlyPayment, width, height);
+    var interestInterval : number = 1.0/8.0;
+    var numIntervals : number = (maxAnnualInterestRateAsAPercent - minAnnualInterestRateAsAPercent)/interestInterval;
     var Pt : Array<Point> = new Array();
-    Pt.push(new Point(0.0, remainingPrincipal));
-    for (i = 1; i <= numberOfMonths; i++)
+    for (var i = 0; i <= numIntervals; i++)
     {
-        remainingPrincipal = remainingPrincipal*(1.0 + monthlyInterestRate);
-        remainingPrincipal = remainingPrincipal - monthlyPayment;
-        Pt.push(new Point(i, remainingPrincipal));
-        if ((remainingPrincipal < 0.0) && (i < numberOfMonths))
-        {
-            break;
-        }
+        var curAnnualInterestRateAsAPercent : number = i*interestInterval;
+        theMortgage.annualInterestRateAsAPercent = curAnnualInterestRateAsAPercent;
+        var curMonthlyPayment : number = theMortgage.computeMonthlyPayment();
+        Pt.push(new Point(curAnnualInterestRateAsAPercent, curMonthlyPayment));
     }
 
-    var PL = new PolyLine(Pt);
+    txtInputInterest.value = "X Axis";
+    txtInputPayment.value = "Y Axis";
+
+    var PL : PolyLine = new PolyLine(Pt);
 
     PL.drawTransformed(T, drawingContext);
 }
