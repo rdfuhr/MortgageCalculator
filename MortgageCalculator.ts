@@ -943,7 +943,8 @@ function Graph()
 {
     // GraphWithTransformedCanvas();
     // GraphWithTransformedObjects();
-    GraphWithTransformedObjects2();
+    // GraphWithTransformedObjects2();
+    GraphWithTransformedObjects3();
 }
 
 function GraphWithTransformedCanvas()
@@ -1032,7 +1033,7 @@ function GraphWithTransformedObjects()
 
     var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
     var drawingContext : CanvasRenderingContext2D = getDrawingContext();
-    drawingContext.save();
+    
     var width : number = drawingCanvas.width;
     var height : number = drawingCanvas.height;
     drawingContext.clearRect(0.0, 0.0, width, height);
@@ -1088,7 +1089,7 @@ function GraphWithTransformedObjects2()
 
     var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
     var drawingContext : CanvasRenderingContext2D = getDrawingContext();
-    drawingContext.save();
+    
     var width : number = drawingCanvas.width;
     var height : number = drawingCanvas.height;
     drawingContext.clearRect(0.0, 0.0, width, height);
@@ -1129,6 +1130,62 @@ function GraphWithTransformedObjects2()
         drawingContext.strokeStyle = "blue";
         lineBC.drawTransformed(T, drawingContext);
     }
+}
+
+function GraphWithTransformedObjects3()
+{
+    Compute();
+
+    var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
+    var txtInputInterest : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputInterest");
+    var txtInputYears : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputYears");
+    var txtInputPayment : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputPayment");
+
+    var strInitialLoan : string = txtInputLoan.value;
+    var strAnnualInterestRateAsAPercent : string = txtInputInterest.value;
+    var strNumberOfYears : string = txtInputYears.value;
+    var strMonthlyPayment : string = txtInputPayment.value;
+
+    var initialLoan : number = parseFloat(strInitialLoan);
+    var annualInterestRateAsAPercent : number = parseFloat(strAnnualInterestRateAsAPercent);
+    var numberOfYears : number = parseFloat(strNumberOfYears);
+    var monthlyPayment : number = parseFloat(strMonthlyPayment);  
+    
+    var initialLoanValid : boolean = !(isNaN(initialLoan));
+    var annualInterestRateAsAPercentValid : boolean = !(isNaN(annualInterestRateAsAPercent));
+    var numberOfYearsValid : boolean = !(isNaN(numberOfYears));
+    var monthlyPaymentValid : boolean = !(isNaN(monthlyPayment));
+
+    var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
+    var drawingContext : CanvasRenderingContext2D = getDrawingContext();
+    
+    var width : number = drawingCanvas.width;
+    var height : number = drawingCanvas.height;
+    drawingContext.clearRect(0.0, 0.0, width, height);
+
+    var numberOfMonths : number = 12*numberOfYears;
+    var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
+
+    var T : ModelToViewTransform = new ModelToViewTransform(numberOfMonths, initialLoan, width, height);
+    var i : number;
+    var remainingPrincipal : number = initialLoan;
+
+    var Pt : Array<Point> = new Array();
+    Pt.push(new Point(0.0, remainingPrincipal));
+    for (i = 1; i <= numberOfMonths; i++)
+    {
+        remainingPrincipal = remainingPrincipal*(1.0 + monthlyInterestRate);
+        remainingPrincipal = remainingPrincipal - monthlyPayment;
+        Pt.push(new Point(i, remainingPrincipal));
+        if ((remainingPrincipal < 0.0) && (i < numberOfMonths))
+        {
+            break;
+        }
+    }
+
+    var PL = new PolyLine(Pt);
+
+    PL.drawTransformed(T, drawingContext);
 }
 
 function Help()
