@@ -877,6 +877,23 @@ class AffineTransform
         }
     }
 
+    inverse() : AffineTransform
+    {
+        var Tinv : AffineTransform = new AffineTransform(0.0, 0.0, 0.0, 0.0);
+        var a : number = this.a;
+        var b : number = this.b;
+        var c : number = this.c;
+        var d : number = this.d;
+        if ((a != 0) && (c != 0))
+        {
+            Tinv.a = 1.0/a;
+            Tinv.b = -1.0*(b/a);
+            Tinv.c = 1.0/c;
+            Tinv.d = -1.0*(d/c);
+        }
+        return Tinv;
+    }
+
     TransformPoint(P : Point) : Point
     {
         var transformedX = this.a*P.x + this.b;
@@ -1336,6 +1353,50 @@ function xCubedMinusSix(x : number) : number
     return x*x*x - 6.0;
 }
 
+function testGetDrawingCanvas()
+{
+    // Not a good test; we are on a different web page
+    document.writeln("<p>Entering testGetDrawingCanvas()</p>"); 
+    var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
+    var width : number = drawingCanvas.width;
+    var height : number = drawingCanvas.height;
+    document.writeln("<p>width = " + width.toString());
+    document.writeln("<p>height = " + height.toString())
+    document.writeln("<p>Leaving testGetDrawingCanvas()</p>");         
+}
+
+function testInvertAffineTransform()
+{
+    document.writeln("<p>Entering testInvertAffineTransform()</p>");
+    
+    var width : number = 1084;
+    var height : number = 670;
+    var T : AffineTransform = new AffineTransform(360, 196000, width, height);
+    var Tinv : AffineTransform = T.inverse();
+    var x1 : number = width/1.414;
+    var y1 : number = height/1.732;
+    var P1 : Point = new Point(x1,y1);
+    var Q1 : Point = T.TransformPoint(P1);
+    var R1 : Point = Tinv.TransformPoint(Q1);
+    var error1 : number = P1.distanceTo(R1);
+    document.writeln("<p>error1 = " + error1.toString());
+    var x2 : number = width/2.71828;
+    var y2 : number = height/3.14159;
+    var P2 : Point = new Point(x2,y2);
+    var Q2 : Point = T.TransformPoint(P2);
+    var R2 : Point = Tinv.TransformPoint(Q2);
+    var error2 : number = P2.distanceTo(R2);
+    document.writeln("<p>error2 = " + error2.toString());    
+    var x3 : number = width;
+    var y3 : number = height;
+    var P3 : Point = new Point(x3,y3);
+    var Q3 : Point = T.TransformPoint(P3);
+    var R3 : Point = Tinv.TransformPoint(Q3);
+    var error3 : number = P3.distanceTo(R3);
+    document.writeln("<p>error3 = " + error3.toString());    
+    document.writeln("<p>Leaving testInvertAffinetransform()</p>");    
+}
+
 function doTests()
 {
     document.writeln("<p>Entering doTests()</p>");
@@ -1344,6 +1405,8 @@ function doTests()
     testComputeNumberOfMonths();
     testFindRootUsingBisection();
     testComputeAnnualInterestRateAsAPercent();
+    // testGetDrawingCanvas(); // Not a good test; we are on a different web page
+    testInvertAffineTransform();
     document.writeln("<p>Leaving doTests()</p>");
 }
 
