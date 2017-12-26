@@ -734,10 +734,10 @@ class Line
   // drawTransformed - method of Line
   // Draws a transformed copy of this Line with specified appearance
   //
-  // input:  transform - the ModelToViewTransform to be applied to this Line 
+  // input:  transform - the AffineTransform to be applied to this Line 
   //         context - the context associated with the canvas
   //////////////////////////////////////////////////////////////////////////////
-  drawTransformed(transform : ModelToViewTransform,
+  drawTransformed(transform : AffineTransform,
                   context : CanvasRenderingContext2D)
   {
     var transformedLine : Line = transform.TransformLine(this)
@@ -799,10 +799,10 @@ class PolyLine
   // drawTransformed - method of PolyLine
   // Draws a transformed copy of this PolyLine with specified appearance
   //
-  // input:  transform - the ModelToViewTransform to be applied to this PolyLine 
+  // input:  transform - the AffineTransform to be applied to this PolyLine 
   //         context - the context associated with the canvas
   //////////////////////////////////////////////////////////////////////////////
-  drawTransformed(transform : ModelToViewTransform,
+  drawTransformed(transform : AffineTransform,
                   context : CanvasRenderingContext2D)
   {
     var transformedPolyLine : PolyLine = transform.TransformPolyLine(this)
@@ -821,7 +821,7 @@ class PolyLine
 }   //   End class PolyLine
 //   End Polyline code
 
-// Begin ModelToViewTransform code
+// Begin AffineTransform code
 // The goal of this section is to implement a class of transforms that
 // map model space to canvas space in this very specialized sense.
 // We may later enahace this after we have tested it a lot.
@@ -848,8 +848,8 @@ class PolyLine
 // c = (-h/ymax)
 // d = h
 //
-class ModelToViewTransform
-{   // Begin class ModelToViewTransform
+class AffineTransform
+{   // Begin class AffineTransform
     a : number;
     b : number;
     c : number;
@@ -908,8 +908,8 @@ class ModelToViewTransform
     }
 
 
-}   //   End class ModelToViewTransform
-//   End ModelToViewTransform code
+}   //   End class AffineTransform
+//   End AffineTransform code
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1041,7 +1041,7 @@ function GraphWithTransformedObjects()
     var numberOfMonths : number = 12*numberOfYears;
     var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
 
-    var T : ModelToViewTransform = new ModelToViewTransform(numberOfMonths, initialLoan, width, height);
+    var T : AffineTransform = new AffineTransform(numberOfMonths, initialLoan, width, height);
     var i : number;
     var remainingPrincipal : number = initialLoan;
 
@@ -1097,7 +1097,7 @@ function GraphWithTransformedObjects2()
     var numberOfMonths : number = 12*numberOfYears;
     var monthlyInterestRate : number = annualInterestRateAsAPercent/1200.0;
 
-    var T : ModelToViewTransform = new ModelToViewTransform(numberOfMonths, monthlyPayment, width, height);
+    var T : AffineTransform = new AffineTransform(numberOfMonths, monthlyPayment, width, height);
     var i : number;
     var remainingPrincipal : number = initialLoan;
 
@@ -1174,7 +1174,7 @@ function GraphWithTransformedObjects3()
     var maxMonthlyPayment : number = theMortgage.computeMonthlyPayment();
 
     // TODO - We may have to generalize the way we build transforms, but for now, here it is
-    var T : ModelToViewTransform = new ModelToViewTransform(maxAnnualInterestRateAsAPercent, maxMonthlyPayment, width, height);
+    var T : AffineTransform = new AffineTransform(maxAnnualInterestRateAsAPercent, maxMonthlyPayment, width, height);
     var interestInterval : number = 1.0/8.0;
     var numIntervals : number = (maxAnnualInterestRateAsAPercent - minAnnualInterestRateAsAPercent)/interestInterval;
     var Pt : Array<Point> = new Array();
