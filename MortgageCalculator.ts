@@ -164,6 +164,8 @@ function sign(t : number) : number
 enum SolveFor{Loan, Interest, Years, Payment}
 var globalSolveFor : SolveFor;
 
+var globalCrossHairsOn : boolean;
+
 enum MortgageParameters{Loan, Interest, Years, Payment, Time, ToInterest, ToPrincipal, RemainingPrincipal}
 
 class Mortgage
@@ -385,6 +387,7 @@ function HandleSolveForRadioButtonChange()
 function StartUp()
 {
     HandleSolveForRadioButtonChange();
+    globalCrossHairsOn = false;
 }
 
 function Compute()
@@ -1151,6 +1154,8 @@ function GraphWithTransformedObjects2()
 
 function GraphWithTransformedObjects3()
 {
+    var globalCrossHairsOnPrev : boolean = globalCrossHairsOn;
+    globalCrossHairsOn = true;
     Compute();
 
     var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
@@ -1229,6 +1234,12 @@ function GraphWithTransformedObjects3()
         let L : Line = new Line(A, B);
         L.drawTransformed(T, drawingContext);
     }
+    // The preceding is just for testing
+
+    // We may need a special callback function for mousemove or mousehover or something
+    // to draw the crosshairs.  We may have to make the polyline be a global.  I don't know yet.
+    
+    globalCrossHairsOn = globalCrossHairsOnPrev;
 }
 
 function Help()
