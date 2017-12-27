@@ -1154,8 +1154,6 @@ function GraphWithTransformedObjects2()
 
 function GraphWithTransformedObjects3()
 {
-    var globalCrossHairsOnPrev : boolean = globalCrossHairsOn;
-    globalCrossHairsOn = true;
     Compute();
 
     var txtInputLoan : HTMLInputElement = <HTMLInputElement>document.getElementById("txtInputLoan");
@@ -1216,31 +1214,163 @@ function GraphWithTransformedObjects3()
     drawingContext.strokeStyle = "black";
     PL.drawTransformed(T, drawingContext);
 
-    // The following is just for testing
-    drawingContext.strokeStyle = "red"
-    for (var i = 0; i <= maxAnnualInterestRateAsAPercent; i++)
-    {
-        let A : Point = new Point(i, 0);
-        let B : Point = new Point(i, maxMonthlyPayment);
-        let L : Line = new Line(A, B);
-        L.drawTransformed(T, drawingContext);
-    }
+    // // The following is for drawing the grid
+    // drawingContext.strokeStyle = "red"
+    // for (var i = 0; i <= maxAnnualInterestRateAsAPercent; i++)
+    // {
+    //     let A : Point = new Point(i, 0);
+    //     let B : Point = new Point(i, maxMonthlyPayment);
+    //     let L : Line = new Line(A, B);
+    //     L.drawTransformed(T, drawingContext);
+    // }
 
-    drawingContext.strokeStyle = "green"
-    for (var j = 0; j <= maxMonthlyPayment; j += 100)
-    {
-        let A : Point = new Point(0, j)
-        let B : Point = new Point(maxAnnualInterestRateAsAPercent, j);
-        let L : Line = new Line(A, B);
-        L.drawTransformed(T, drawingContext);
-    }
-    // The preceding is just for testing
+    // drawingContext.strokeStyle = "green"
+    // for (var j = 0; j <= maxMonthlyPayment; j += 100)
+    // {
+    //     let A : Point = new Point(0, j)
+    //     let B : Point = new Point(maxAnnualInterestRateAsAPercent, j);
+    //     let L : Line = new Line(A, B);
+    //     L.drawTransformed(T, drawingContext);
+    // }
+    // // The preceding is for drawing the grid
 
-    // We may need a special callback function for mousemove or mousehover or something
-    // to draw the crosshairs.  We may have to make the polyline be a global.  I don't know yet.
+    // Begin setting up the callbacks
+    var Tinv : AffineTransform = T.inverse();
+    drawingCanvas.addEventListener('mousedown', function(evt)
+    {
+       onMouseDown(evt,
+                   drawingCanvas);
+    }, false);
+
+    drawingCanvas.addEventListener('mousemove', function(evt)
+    {
+       onMouseMove(evt,
+                   drawingContext,
+                   drawingCanvas,
+                   theMortgage,
+                   T,
+                   Tinv,
+                   txtInputLoan,
+                   txtInputInterest,
+                   txtInputYears,
+                   txtInputPayment,
+                   PL
+                   );
+    }, true);
+
+    drawingCanvas.addEventListener('mouseup', function(evt)
+    {
+       onMouseUp();
+    }, false);
+
+    // End setting up the callbacks.
     
-    globalCrossHairsOn = globalCrossHairsOnPrev;
 }
+
+// Begin implementing mouse position functions
+////////////////////////////////////////////////////////////////////////////////
+// getMousePos - function
+// Get current position of mouse in terms of canvas coordinates
+//
+// input: canvas - the canvas on which we are drawing
+// input: evt - the mouse event
+// returns: current position of mouse in terms of canvas coordinates
+////////////////////////////////////////////////////////////////////////////////
+function getMousePos(canvas : HTMLCanvasElement,
+                     evt : MouseEvent) : Point
+{
+var rect : ClientRect = canvas.getBoundingClientRect();
+var x : number = evt.clientX - rect.left;
+var y : number = evt.clientY - rect.top;
+var mousePos : Point = new Point(x,y);
+return mousePos;
+}
+//   End implementing mouse position functions
+
+// Begin implementing the callbacks
+function onMouseDown(evt : MouseEvent,
+                     drawingCanvas : HTMLCanvasElement)
+{
+    var viewPos : Point = getMousePos(drawingCanvas, evt);
+    var w : number = drawingCanvas.width;
+    var h : number = drawingCanvas.height;
+
+    var x : number = viewPos.x;
+    var y : number = viewPos.y;
+
+    if ((0.0 <= x) && (x <= w) && (0.0 <= y) && (y <= h))
+    {
+       globalCrossHairsOn = true;
+    }
+    else
+    {
+       globalCrossHairsOn = false;
+    }
+
+}
+
+function onMouseMove(evt : MouseEvent,
+                     drawingContext : CanvasRenderingContext2D,
+                     drawingCanvas : HTMLCanvasElement,
+                     theMortgage : Mortgage,
+                     T : AffineTransform,
+                     Tinv : AffineTransform,
+                     txtInputLoan : HTMLInputElement,
+                     txtInputInterest : HTMLInputElement,
+                     txtInputYears : HTMLInputElement,
+                     txtInputPayment : HTMLInputElement,
+                     PL : PolyLine)
+{
+    if (globalCrossHairsOn==true)
+    {
+        var viewPosOfMouse : Point = getMousePos(drawingCanvas, evt);
+        var w : number = drawingCanvas.width;
+        var h : number = drawingCanvas.height;
+
+    
+        var x : number = viewPosOfMouse.x;
+        var y : number = viewPosOfMouse.y;
+    
+        if ((0.0 <= x) && (x <= w) && (0.0 <= y) && (y <= h))
+        {
+            drawingContext.clearRect(0.0, 0.0, w, h);
+            var modelPosOfMouse : Point = Tinv.TransformPoint(viewPosOfMouse)
+            var currInterest = modelPosOfMouse.x;
+            theMortgage.annualInterestRateAsAPercent = currInterest;
+            var currPayment = theMortgage.computeMonthlyPayment();
+            txtInputInterest.value = "X = " + currInterest.toFixed(3).toString();
+            txtInputPayment.value = "Y = " + roundUp(currPayment).toString();
+
+            drawingContext.strokeStyle = "red";
+            drawingContext.beginPath();
+            drawingContext.moveTo(x,0);
+            drawingContext.lineTo(x,h);
+            drawingContext.stroke();
+
+            var ModelPosOfPtOnCurve : Point = new Point(currInterest, roundUp(currPayment));
+            var ViewPosOfPtOnCurve = T.TransformPoint(ModelPosOfPtOnCurve);
+            y = ViewPosOfPtOnCurve.y;
+
+            drawingContext.strokeStyle = "green";
+            drawingContext.beginPath();
+            drawingContext.moveTo(0,y);
+            drawingContext.lineTo(w,y);
+            drawingContext.stroke();
+
+            drawingContext.strokeStyle = "black";
+            PL.drawTransformed(T, drawingContext);
+        }
+    
+    }
+
+}
+
+function onMouseUp()
+{
+    globalCrossHairsOn = false;
+
+}
+//   End implementing the callbacks
 
 function Help()
 {
