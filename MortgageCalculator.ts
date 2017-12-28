@@ -386,6 +386,14 @@ function HandleSolveForRadioButtonChange()
 
 function StartUp()
 {
+    var drawingCanvas : HTMLCanvasElement = getDrawingCanvas();
+    var windowInnerHeight : number = window.innerHeight; 
+    const maxHeightFac : number = 0.6;
+    
+    if (drawingCanvas.height > maxHeightFac*windowInnerHeight)
+    {
+        drawingCanvas.height = maxHeightFac*windowInnerHeight;
+    }
     HandleSolveForRadioButtonChange();
     globalCrossHairsOn = false;
 }
